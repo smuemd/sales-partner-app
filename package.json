@@ -1,0 +1,38 @@
+{
+  "name": "sev-commissioning-app",
+  "description": "",
+  "version": "0.0.1",
+  "author": "gitreco",
+  "ava": {
+    "verbose": "true"
+  },
+  "bugs": "https://github.com/gitreco/sev-commissioning-app/issues",
+  "dependencies": {
+    "mithril": "^1.1.1",
+    "reshape-standard": "^1.2.0",
+    "spike": "1.3.1",
+    "spike-css-standards": "^2.0.1",
+    "spike-js-standards": "^2.0.2",
+    "spike-page-id": "^1.0.0",
+    "webpack": "^2.5.1"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "rimraf": "^2.6.1",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.2"
+  },
+  "homepage": "https://github.com/gitreco/sev-commissioning-app",
+  "main": "app.js",
+  "private": true,
+  "repository": "https://github.com/gitreco/sev-commissioning-app",
+  "scripts": {
+    "lint": "standard | snazzy",
+    "precommit": "npm run lint -s",
+    "pretest": "npm run lint -s",
+    "test": "NODE_ENV=test ava",
+    "start": "spike watch",
+    "build": "spike compile",
+    "prod": "NODE_ENV=production spike compile -e production"
+  }
+}
