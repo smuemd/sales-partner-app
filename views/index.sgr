@@ -5,6 +5,9 @@ extends(src='layout.sgr')
     p Example of locals: {{ foo }}
     p(mdi) Example of **markdown**
     p Example of "smart quotes" -- and dashes
+    P
+      | Example using Mithril.js:&nbsp;
+      span(class="mithril-test")
 
     hr
 
