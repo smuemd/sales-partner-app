@@ -1,4 +1,4 @@
 console.log('you can use ES6 here : )')
-var m = require("mithril")
+const m = require('mithril')
 
-m.render(document.body, "hello world")
+m.render(document.querySelector('span.mithril-test'), 'hello world from mithril')
