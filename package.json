@@ -18,6 +18,9 @@
   },
   "devDependencies": {
     "ava": "^0.19.1",
+    "husky": "^0.14.1",
+    "lint-staged": "^4.0.0",
+    "prettier-standard": "^5.1.0",
     "rimraf": "^2.6.1",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2"
@@ -28,11 +31,17 @@
   "repository": "https://github.com/gitreco/sev-commissioning-app",
   "scripts": {
     "lint": "standard | snazzy",
-    "precommit": "npm run lint -s",
     "pretest": "npm run lint -s",
     "test": "NODE_ENV=test ava",
     "start": "spike watch",
     "build": "spike compile",
+    "precommit": "lint-staged",
     "prod": "NODE_ENV=production spike compile -e production"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier-standard",
+      "git add"
+    ]
   }
 }
