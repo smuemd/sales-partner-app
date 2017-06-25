@@ -23,15 +23,28 @@
     "snazzy": "^7.0.0",
     "standard": "^10.0.2"
   },
+  "optionalDependencies": {
+    "husky": "^0.14.1",
+    "lint-staged": "^4.0.0"
+  },
   "engines": {
     "node": ">=6.0.0",
     "npm": ">=3.8.0"
   },
   "homepage": "https://github.com/smuemd/sev-commissioning-app",
+  "lint-staged": {
+    "linters": {
+      "**/*.js": [
+        "prettier-standard",
+        "git add"
+      ]
+    }
+  },
   "main": "app.js",
   "repository": "https://github.com/smuemd/sev-commissioning-app",
   "scripts": {
     "lint": "standard | snazzy",
+    "precommit": "lint-staged",
     "pretest": "npm run lint -s",
     "test": "NODE_ENV=test ava",
     "start": "spike watch",
