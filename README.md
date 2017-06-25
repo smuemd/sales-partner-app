@@ -1,5 +1,7 @@
 # sev-commissioning-app
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/smuemd/sev-commissioning-app.svg)](https://greenkeeper.io/)
+
 
 
 ## Setup
