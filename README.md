@@ -1,15 +1,11 @@
 # sev-commissioning-app
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/smuemd/sev-commissioning-app.svg)](https://greenkeeper.io/)
-
-
-
 ## Setup
 
 - make sure [node.js](http://nodejs.org) is at version >= `6`
 - `npm i spike -g`
 - clone this repo down and `cd` into the folder
-- run `npm install`
+- run `yarn install ` or `npm install`
 - run `spike watch` or `spike compile`
 
 ## Testing
