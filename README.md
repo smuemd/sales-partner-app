@@ -1,5 +1,7 @@
 # sev-commissioning-app
 
+[![Build Status](https://travis-ci.org/smuemd/sev-commissioning-app.svg?branch=master)](https://travis-ci.org/smuemd/sev-commissioning-app) 
+
 ## Setup
 
 - make sure [node.js](http://nodejs.org) is at version >= `6`
