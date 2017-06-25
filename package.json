@@ -2,7 +2,7 @@
   "name": "sev-commissioning-app",
   "description": "",
   "version": "0.0.1",
-  "author": "gitreco",
+  "author": "STROMDAO",
   "ava": {
     "verbose": "true"
   },
@@ -25,10 +25,9 @@
     "snazzy": "^7.0.0",
     "standard": "^10.0.2"
   },
-  "homepage": "https://github.com/gitreco/sev-commissioning-app",
+  "homepage": "https://github.com/smuemd/sev-commissioning-app",
   "main": "app.js",
-  "private": true,
-  "repository": "https://github.com/gitreco/sev-commissioning-app",
+  "repository": "https://github.com/smuemd/sev-commissioning-app",
   "scripts": {
     "lint": "standard | snazzy",
     "pretest": "npm run lint -s",
