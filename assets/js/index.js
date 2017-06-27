@@ -47,10 +47,10 @@ Account.getSaldo().then(res => {
     haben: Account.haben,
     saldo: Account.saldo
   }
+  console.log(obj)
 
   /**
    * Mithril example
    */
-
   m.render(document.querySelector('span.mithril-test'), 'hello world from mithril (' + Account.saldo() + ')')
 })
