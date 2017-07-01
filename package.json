@@ -16,7 +16,7 @@
     "spike-js-standards": "^2.0.2",
     "spike-page-id": "^1.0.0",
     "stromdao-businessobject": "^0.4.4",
-    "webpack": "^2.5.1"
+    "webpack": "^3.0.0"
   },
   "devDependencies": {
     "ava": "^0.19.1",
