@@ -5964,6 +5964,14 @@ reshape-content@^0.2.0:
     reshape-plugin-util "^0.2.1"
     when "^3.7.7"
 
+reshape-eval-code@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/reshape-eval-code/-/reshape-eval-code-0.3.2.tgz#0a4bb448f242e47110546122747b783f7dc3d8fe"
+  dependencies:
+    reshape-code-gen "^0.2.1"
+    reshape-parser "^0.2.1"
+    reshape-plugin-util "^0.2.1"
+
 reshape-expressions@^0.1.4, reshape-expressions@^0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/reshape-expressions/-/reshape-expressions-0.1.5.tgz#28c12bf35de40263362499cead0b044321e4a78c"
@@ -6017,13 +6025,14 @@ reshape-retext@^0.3.0:
     retext "^3.0.0"
     when "^3.7.7"
 
-reshape-standard@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/reshape-standard/-/reshape-standard-1.2.0.tgz#120f7d0a2c945cdbb455661352fc617dc32be4c4"
+reshape-standard@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/reshape-standard/-/reshape-standard-2.0.0.tgz#affc6d9c896d96aa2737d883609c25d880fe2996"
   dependencies:
     markdown-it "^8.2.2"
     reshape-beautify "^0.1.2"
     reshape-content "^0.2.0"
+    reshape-eval-code "^0.3.2"
     reshape-expressions "^0.1.5"
     reshape-include "^1.0.0"
     reshape-layouts "^1.0.0"
