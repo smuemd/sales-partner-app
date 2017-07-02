@@ -10,7 +10,7 @@
   "dependencies": {
     "domready": "^1.0.8",
     "mithril": "^1.1.1",
-    "reshape-standard": "^1.2.0",
+    "reshape-standard": "^2.0.0",
     "spike": "2.0.0",
     "spike-css-standards": "^2.0.1",
     "spike-js-standards": "^2.0.2",
