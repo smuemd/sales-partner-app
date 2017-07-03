@@ -18,6 +18,10 @@ test('compiles project with spike', (t) => {
     project.on('warning', reject)
     project.on('compile', resolve)
     project.compile()
-    t.pass()
+  }).then(res => {
+    t.pass(res)
+  }).catch(reason => {
+    console.log(reason)
+    t.fail()
   })
 })
