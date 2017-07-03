@@ -1,5 +1,7 @@
 'use strict'
-import m from 'mithril'
+/* global m */
+//  added Mithril globally via script tag for now
+// import m from 'mithril'
 
 /**
  * StromDAO-businessObject Example
@@ -18,6 +20,7 @@ const Account = {
   getLedger: () => document.node.stromkonto(Account.ledger),
 
   getHaben: () => Account.getLedger().then(ledger => {
+    // TODO Initialize SDAO BO properly.
     return ledger.balancesHaben(Account.id).then(haben => {
       Account.haben = haben
       return Account.haben
