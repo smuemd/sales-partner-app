@@ -9,7 +9,7 @@ import m from 'mithril'
 
 // Create Instance with external ID 1234
 let node = new document.StromDAOBO.Node({
-  external_id: '1234',
+  external_id: '19810930',
   testMode: true,
   rpc: 'https://demo.stromdao.de/rpc',
   abilocation:
@@ -50,6 +50,10 @@ const Account = {
     Promise.all([Account.getHaben(), Account.getSoll()]).then(() => {
       return Account.saldo()
     })
+
+  logRPC: () => {
+    console.log(node.rpcprovider);
+  }
 }
 
 // Applying Model methods
