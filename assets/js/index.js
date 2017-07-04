@@ -52,7 +52,8 @@ const Account = {
     })
 }
 
-// Applying Model methods TODO: this is not working right now. @Thorsten.
+// Applying Model methods
+/* TODO: this is not working right now. @Thorsten. */
 // Account.getSaldo().then(() => {
 //   let obj = {
 //     account: Account.id,
@@ -89,7 +90,7 @@ function createModel () {
  * (2) Consolidated App Actions
  *
  * => extract/consolidate application behavior/logic into a single entity.
- * => pass in the model, so actions operate can operate on passed in data.
+ * => pass in the model, so actions can operate on passed in data rather than reaching out.
  */
 
 function createActions (model) {
@@ -98,16 +99,16 @@ function createActions (model) {
   }
 
   function onButtonClick () {
-    model.clickCount += 56
+    model.clickCount += 28
     model.msg = model.msg.toUpperCase()
   }
 }
 
 /**
  *
- * (3) Single single `view()` function brocken out into modular sub-views.
+ * (3) Single single `view()` function broken out into modular sub-views.
  *
- * => encaspsulate modularity in an IIFE (note the return view toward its end)
+ * => encapsulate modularity in an IIFE (note the return view toward its end)
  * => pass that app-model into the view function, so view operates on passed-in data
  *    rather than reach out and access a global variable
  * => TODO: use ES6 or CommonJS modules in favor of IIFE
