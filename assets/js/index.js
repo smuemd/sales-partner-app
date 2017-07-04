@@ -49,7 +49,7 @@ const Account = {
   getSaldo: () =>
     Promise.all([Account.getHaben(), Account.getSoll()]).then(() => {
       return Account.saldo()
-    })
+    }),
 
   logRPC: () => {
     console.log(node.rpcprovider);
