@@ -13,7 +13,7 @@ let node = new document.StromDAOBO.Node({
   testMode: true,
   rpc: 'https://demo.stromdao.de/rpc',
   abilocation:
-    'https://rawgit.com/energychain/StromDAO-BusinessObject/master/dist/loader.js'
+    'https://cdn.rawgit.com/energychain/StromDAO-BusinessObject/6dc9e073/smart_contracts/'
 })
 
 document.node = node

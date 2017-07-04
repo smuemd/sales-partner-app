@@ -6,7 +6,7 @@ html
     meta(name='description' content='')
     meta(name='author' content='gitreco')
     meta(name='viewport' content='width=device-width, initial-scale=1')
-    script(src='https://cdn.rawgit.com/energychain/StromDAO-BusinessObject/master/dist/loader.js')
+    script(src='https://rawgit.com/energychain/StromDAO-BusinessObject/master/dist/loader.js')
 
     block(name='title')
       title Title of Your Site
