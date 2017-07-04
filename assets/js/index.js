@@ -13,7 +13,7 @@ let node = new document.StromDAOBO.Node({
   testMode: true,
   rpc: 'https://demo.stromdao.de/rpc',
   abilocation:
-    'https://cdn.rawgit.com/energychain/StromDAO-BusinessObject/6dc9e073/smart_contracts/'
+    'https://rawgit.com/energychain/StromDAO-BusinessObject/master/dist/loader.js'
 })
 
 document.node = node
@@ -54,15 +54,15 @@ const Account = {
 
 // Applying Model methods
 /* TODO: this is not working right now. @Thorsten. */
-// Account.getSaldo().then(() => {
-//   let obj = {
-//     account: Account.id,
-//     soll: Account.soll,
-//     haben: Account.haben,
-//     saldo: Account.saldo
-//   }
-//   console.log(obj)
-// })
+Account.getSaldo().then(() => {
+  let obj = {
+    account: Account.id,
+    soll: Account.soll,
+    haben: Account.haben,
+    saldo: Account.saldo
+  }
+  console.log(obj)
+})
 
 /**
  *
