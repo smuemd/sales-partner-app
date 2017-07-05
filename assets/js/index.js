@@ -49,16 +49,13 @@ const Account = {
   getSaldo: () =>
     Promise.all([Account.getHaben(), Account.getSoll()]).then(() => {
       return Account.saldo()
-    }),
-
-  logRPC: () => {
-    console.log(node.rpcprovider);
-  }
+    })
 }
 
 // Applying Model methods
 /* TODO: this is not working right now. @Thorsten. */
 Account.getSaldo().then(() => {
+  console.log(node.rpcprovider)
   let obj = {
     account: Account.id,
     soll: Account.soll,
@@ -66,6 +63,7 @@ Account.getSaldo().then(() => {
     saldo: Account.saldo
   }
   console.log(obj)
+  if model { model.clickCount = Account.saldo }
 })
 
 /**
