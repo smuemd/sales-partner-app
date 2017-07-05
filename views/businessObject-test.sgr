@@ -1,7 +1,0 @@
-extends(src='layout.sgr')
-  block(name='content')
-    div(class="mithril-example")
-
-  block(name='javascript')
-    script(src='https://demo.stromdao.de/js/loader.js')
-    script(src='js/main.js' defer)
