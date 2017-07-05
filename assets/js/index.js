@@ -63,7 +63,6 @@ Account.getSaldo().then(() => {
     saldo: Account.saldo
   }
   console.log(obj)
-  if model { model.clickCount = Account.saldo }
 })
 
 /**
