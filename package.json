@@ -33,12 +33,7 @@
   },
   "homepage": "https://github.com/smuemd/sev-commissioning-app",
   "lint-staged": {
-    "linters": {
-      "**/*.js": [
-        "prettier-standard",
-        "git add"
-      ]
-    }
+      "**/*.js": [ "prettier-standard", "git add" ]
   },
   "main": "app.js",
   "repository": "https://github.com/smuemd/sev-commissioning-app",
