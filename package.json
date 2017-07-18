@@ -8,6 +8,7 @@
   },
   "bugs": "https://github.com/gitreco/sev-commissioning-app/issues",
   "dependencies": {
+    "auth0-js": "^8.8.0",
     "mithril": "^1.1.1",
     "reshape-standard": "^2.0.0",
     "spike": "2.0.0",
