@@ -17,7 +17,7 @@
     "webpack": "^3.3.0"
   },
   "devDependencies": {
-    "ava": "^0.20.0",
+    "ava": "^0.21.0",
     "prettier-standard": "^6.0.0",
     "rimraf": "^2.6.1",
     "snazzy": "^7.0.0",
