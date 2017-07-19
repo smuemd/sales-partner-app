@@ -115,7 +115,7 @@ function createActions (model) {
  * => TODO: use ES6 or CommonJS modules in favor of IIFE
  */
 
-const someView = (function () {
+const view = (function () {
   function view (model, actions) {
     return viewApp(model, actions)
   }
@@ -153,18 +153,22 @@ const someView = (function () {
  * (1) set up an initial model
  * (2) create an actions object
  * (3) then pass model and actions objects
+ *
+ *  I choose to use a main() function, which itself is called from
+ *  window.addEventListener("DOMContentLoaded", ...). YMMV.
  */
 
-document.addEventListener('DOMContentLoaded', function (event) {
-  console.log('DOM fully loaded and parsed ', event)
+window.addEventListener("DOMContentLoaded", main)
 
+function main (event) {
+  console.log('DOM fully loaded and parsed ', event)
   // (1) create actions object to pass into actions and view on mount.
   let model = createModel()
   // (2) create actions object to pass into the view on mount.
   let actions = createActions(model)
   // (3) mount the view() function with Mithril's m.mount(); pass in model and actions objects
-  m.mount(document.body, someView(model, actions))
-})
+  m.mount(document.body, view(model, actions))
+}
 
 /**
  *
@@ -174,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
  * 1) we start with a model
  * 2) based on that model we render a view
  * 3) user interactions with the view -- and more generally any outside input -- is
- * sent to an actions object
+ *    sent to an actions object
  * 4) based on that input the actions object updates the model
  *
  * ... and we're back to step 1!
