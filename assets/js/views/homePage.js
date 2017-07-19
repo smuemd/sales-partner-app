@@ -3,7 +3,7 @@ import User from '../model/user'
 
 class HomePage {
   view (vnode) {
-    if (User.isAuthenticated() === true) {
+    if (User.isAuthenticated()) {
       return m('main', [
         m(
           'p',

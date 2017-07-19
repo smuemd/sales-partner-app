@@ -19,9 +19,11 @@ class User {
     var expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     )
-    localStorage.setItem('access_token', authResult.accessToken)
-    localStorage.setItem('id_token', authResult.idToken)
-    localStorage.setItem('expires_at', expiresAt)
+    if (window.localStorage) {
+      window.localStorage.setItem('access_token', authResult.accessToken)
+      window.localStorage.setItem('id_token', authResult.idToken)
+      window.localStorage.setItem('expires_at', expiresAt)
+    }
   }
 
   static handleAuthentication () {
@@ -43,14 +45,20 @@ class User {
   }
 
   static logout () {
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('expires_at')
+    if (window.localStorage) {
+      window.localStorage.removeItem('access_token')
+      window.localStorage.removeItem('id_token')
+      window.localStorage.removeItem('expires_at')
+    }
   }
 
   static isAuthenticated () {
-    var expiresAt = JSON.parse(localStorage.getItem('expires_at'))
-    return new Date().getTime() < expiresAt
+    let authenticated = false
+    if (window.localStorage) {
+      var expiresAt = JSON.parse(window.localStorage.getItem('expires_at'))
+      authenticated = new Date().getTime() < expiresAt
+    }
+    return authenticated
   }
 }
 
