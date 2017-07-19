@@ -6,6 +6,8 @@ html
     meta(name='description' content='')
     meta(name='author' content='gitreco')
     meta(name='viewport' content='width=device-width, initial-scale=1')
+    script(src='https://demo.stromdao.de/js/loader.js')
+    script(src="https://unpkg.com/mithril/mithril.min.js")
 
     block(name='title')
       title Title of Your Site
@@ -17,5 +19,4 @@ html
       block(name='content')
 
     block(name='javascript')
-      script(src='https://demo.stromdao.de/js/loader.js')
       script(src='js/main.js' defer)
