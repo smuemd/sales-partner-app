@@ -1,56 +1,61 @@
 'use strict'
-import m from 'mithril'
+var m = require('mithril')
 
 /**
  * StromDAO-businessObject Example
  */
 
 // Account model
-const Account = {
-  ledger: '0xfcBfE1e0D5B62b4E281609B150423b0F15082319',
-  id: '0x0022aFE423D59a9f4AC99927a5d6D7E7c4BA017c',
-  soll: 0,
-  haben: 0,
-  saldo: () => {
-    return Account.haben - Account.soll
-  },
+class Account {
+  constructor () {
+    this.ledger = '0xfcBfE1e0D5B62b4E281609B150423b0F15082319'
+    this.id = '0x0022aFE423D59a9f4AC99927a5d6D7E7c4BA017c'
+    this.soll = 0
+    this.haben = 0
+  }
 
-  getLedger: () => document.node.stromkonto(Account.ledger),
+  saldo () {
+    return this.haben - this.soll
+  }
 
-  getHaben: () => Account.getLedger().then(ledger => {
-    return ledger.balancesHaben(Account.id).then(haben => {
-      Account.haben = haben
-      return Account.haben
+  getLedger () {
+    return document.node.stromkonto(this.ledger)
+  }
+
+  getHaben () {
+    var self = this
+    return this.getLedger().then(ledger => {
+      return ledger.balancesHaben(self.id).then(haben => {
+        self.haben = haben
+        return self.haben
+      })
     })
-  }),
+  }
 
-  getSoll: () => Account.getLedger().then(ledger => {
-    return ledger.balancesSoll(Account.id).then(soll => {
-      Account.soll = soll
-      return Account.soll
+  getSoll () {
+    var self = this
+    return this.getLedger().then(ledger => {
+      return ledger.balancesSoll(self.id).then(soll => {
+        self.soll = soll
+        return self.soll
+      })
     })
-  }),
+  }
 
-  getSaldo: () => Promise.all([
-    Account.getHaben(),
-    Account.getSoll()
-  ]).then(values => {
-    return Account.saldo()
-  })
+  getSaldo () {
+    var self = this
+    return Promise.all([this.getHaben(), this.getSoll()]).then(values => {
+      return self.saldo()
+    })
+  }
 }
 
-// Applying Model methods
-Account.getSaldo().then(res => {
-  let obj = {
-    account: Account.id,
-    soll: Account.soll,
-    haben: Account.haben,
-    saldo: Account.saldo
-  }
-  console.log(obj)
-
-  /**
-   * Mithril example
-   */
-  m.render(document.querySelector('span.mithril-test'), 'hello world from mithril (' + Account.saldo() + ')')
-})
+let account = new Account()
+account
+  .getSaldo()
+  .then(res =>
+    m.render(
+      document.querySelector('#index'),
+      `hello world from mithril ${res}`
+    )
+  )
