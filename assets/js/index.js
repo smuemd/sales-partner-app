@@ -4,45 +4,59 @@ import m from 'mithril'
 /**
  * Routing Strategy
  *
- * represent changes in the route as changes in the model...
- * ...then continue as before by using that model to render a view.
+ * Routing example with route- and query-params for /fruits and /vegetables routes.
+ * With :name and :color as optional route params, and qty in each case as a query param.
  */
 
 // Settings object with routes "/fruits" and "/vegetables" .
-const settings = {
-  paths : ['fruits', 'vegetables']
-}
 
-window.addEventListener("DOMContentLoaded", main)
+window.addEventListener('DOMContentLoaded', main)
 
+// create main() function to set up model, actions and routing
 function main (event) {
   console.log('DOM fully loaded and parsed ', event)
 
-  // (1) set up an initial model and pass settings
+  // a slightly more involved settings obj. Now inside the main function
+  const settings = {
+    paths: [
+      { name: 'fruits', route: '/fruits' },
+      { name: 'fruits-name', route: '/fruits/:name' },
+      { name: 'vegetables', route: '/vegetables' },
+      { name: 'vegetables-color', route: '/vegetables/:color' }
+    ]
+  }
+  // set up an initial model and pass settings
   const model = createModel(settings)
-  // (2) create actions object
+  // create actions object
   const actions = createActions(model)
-  // (3) set up a route resolver and pass model and actions objects
+  // set up a route resolver and pass model and actions objects
   const routeResolver = createRouteResolver(model, actions)
-  const defaultRoute = '/' + settings.paths[0]
+  // set a default route
+  const defaultRoute = settings.paths[0].route + '?qty=100'
 
+  console.log('route resolver:   ', routeResolver)
   m.route(document.body, defaultRoute, routeResolver)
 }
 
+// (1) set up the app model
 function createModel (settings) {
   return {
     paths: settings.paths.slice(),
-    routeName: undefined
+    routeName: undefined,
+    params: undefined
   }
 }
 
+// (2) set up app actions
 function createActions (model) {
   return {
     onNavigateTo: onNavigateTo
   }
 
-  function onNavigateTo (routeName, params) {
+  function onNavigateTo (routePattern, params) {
+    let routeName = routePattern.split('/')[1]
     model.routeName = routeName
+    model.params = params
   }
 }
 
@@ -51,14 +65,15 @@ function createActions (model) {
 // the actions object will update model ... which will then be rendered by view()
 function createRouteResolver (model, actions) {
   return model.paths.reduce(function (acc, item) {
-    acc['/' + item] = {
+    acc[item.route] = {
       onmatch: function (params, route) {
-        actions.onNavigateTo(item, params)
+        actions.onNavigateTo(item.route, params)
       },
       render: function () {
         return view(model, actions)
       }
     }
+
     return acc
   }, {})
 }
@@ -78,10 +93,16 @@ const view = (function () {
   }
 
   function viewHeader (model) {
+    let sampleParams = {
+      '/fruits/:name': '/fruits/apple',
+      '/vegetables/:color': '/vegetables/green'
+    }
+
     return m('.nav',
-      model.paths.map(function (item) {
+      model.paths.map(function (item, index) {
+        let href = (sampleParams[item.route] || ('/' + item.name)) + '?qty=' + (index + 1)
         return [
-          m('a', { href: '/' + item, oncreate: m.route.link }, item),
+          m('a', { href: href, oncreate: m.route.link }, item.name),
           ' '
         ]
       })
@@ -89,11 +110,15 @@ const view = (function () {
   }
 
   function viewFruits (model) {
-    return m('.fruits', 'FRUITS')
+    return m('.fruits', 'FRUITS',
+        m('code', JSON.stringify(model.params))
+      )
   }
 
   function viewVegetables (model) {
-    return m('.vegetables', 'VEGETABLES')
+    return m('.vegetables', 'VEGETABLES',
+        m('code', JSON.stringify(model.params))
+      )
   }
 
   return view
