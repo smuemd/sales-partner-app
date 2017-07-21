@@ -12,7 +12,8 @@ class HomePage {
             id: 'loginBtn',
             href: '#'
           },
-          "You're Logged In"
+          `Welcome! ${window.localStorage.getItem('currentUserName') ||
+            ''}, You're Logged In`
         ),
         m(
           'a',
