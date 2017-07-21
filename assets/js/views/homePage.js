@@ -12,7 +12,7 @@ class HomePage {
             id: 'loginBtn',
             href: '#'
           },
-          "You're Logged In"
+          `Welcome! ${User.currentUserName().capitalize()}, You're Logged In`
         ),
         m(
           'a',

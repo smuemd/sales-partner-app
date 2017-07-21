@@ -1,5 +1,6 @@
 import { CLIENT_ID, DOMAIN, CALLBACK_URL } from '../config/auth0Conf'
 import auth0 from 'auth0-js'
+import m from 'mithril'
 
 class User {
   static webAuth () {
@@ -9,9 +10,28 @@ class User {
       redirectUri: CALLBACK_URL,
       audience: 'https://' + DOMAIN + '/userinfo',
       responseType: 'token id_token',
-      scope: 'openid',
+      scope: 'openid profile email',
       leeway: 60,
       usePostMessage: false
+    })
+  }
+
+  static currentUserName () {
+    return window.localStorage.getItem('currentUserName') || 'User'
+  }
+
+  static currentUserEmail () {
+    return window.localStorage.getItem('currentUserEmail') || 'User'
+  }
+
+  static createCurrentUser (authResult) {
+    User.webAuth().client.userInfo(authResult.accessToken, function (
+      err,
+      userInfo
+    ) {
+      window.localStorage.setItem('currentUserName', userInfo.name)
+      window.localStorage.setItem('currentUserEmail', userInfo.email)
+      m.redraw()
     })
   }
 
@@ -26,11 +46,12 @@ class User {
     }
   }
 
-  static handleAuthentication () {
+  static checkLogin () {
     User.webAuth().parseHash(function (err, authResult) {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = ''
         User.setSession(authResult)
+        User.createCurrentUser(authResult)
       } else if (err) {
         console.log(err)
       }
@@ -40,15 +61,14 @@ class User {
   static authorize () {
     User.webAuth().authorize()
   }
-  static checkLogin () {
-    User.handleAuthentication()
-  }
 
   static logout () {
     if (window.localStorage) {
       window.localStorage.removeItem('access_token')
       window.localStorage.removeItem('id_token')
       window.localStorage.removeItem('expires_at')
+      window.localStorage.removeItem('currentUserName')
+      window.localStorage.removeItem('currentUserEmail')
     }
   }
 
@@ -61,5 +81,7 @@ class User {
     return authenticated
   }
 }
+
+User.checkLogin()
 
 export default User
