@@ -10,12 +10,17 @@ module.exports = {
   matchers: { html: '*(**/)*.sgr', css: '*(**/)*.css' },
   ignore: ['**/layout.sgr', '**/_*', '**/.*', 'readme.md', 'yarn.lock'],
   reshape: htmlStandards({
-    locals: (ctx) => { return { pageId: pageId(ctx), foo: 'bar' } },
+    locals: ctx => {
+      return { pageId: pageId(ctx), foo: 'bar' }
+    },
     minify: env === 'production'
   }),
   postcss: cssStandards({
     parser: false,
-    path: path.join(__dirname, './assets/css/css_modules'),
+    path: [
+      path.join(__dirname, './assets/css/css_modules'),
+      path.join(__dirname, './node_modules/purecss/build')
+    ],
     minify: env === 'production',
     warnForDuplicates: env !== 'production'
   }),
