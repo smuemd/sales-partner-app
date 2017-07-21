@@ -12,7 +12,8 @@ class HomePage {
             id: 'loginBtn',
             href: '#'
           },
-          `Welcome! ${User.currentUserName().capitalize()}, You're Logged In`
+          `Welcome! ${window.localStorage.getItem('currentUserName') ||
+            ''}, You're Logged In`
         ),
         m(
           'a',

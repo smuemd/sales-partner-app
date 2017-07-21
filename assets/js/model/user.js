@@ -1,6 +1,9 @@
+'use strict'
+
 import { CLIENT_ID, DOMAIN, CALLBACK_URL } from '../config/auth0Conf'
-import auth0 from 'auth0-js'
 import m from 'mithril'
+import auth0 from 'auth0-js'
+import { capitalize } from '../helpers/helperFunctions'
 
 class User {
   static webAuth () {
@@ -17,7 +20,7 @@ class User {
   }
 
   static currentUserName () {
-    return window.localStorage.getItem('currentUserName') || 'User'
+    return capitalize(window.localStorage.getItem('currentUserName') || 'User')
   }
 
   static currentUserEmail () {
@@ -29,7 +32,7 @@ class User {
       err,
       userInfo
     ) {
-      window.localStorage.setItem('currentUserName', userInfo.name)
+      window.localStorage.setItem('currentUserName', capitalize(userInfo.name))
       window.localStorage.setItem('currentUserEmail', userInfo.email)
       m.redraw()
     })
