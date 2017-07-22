@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', main)
 
 // create main() function to set up model, actions and routing
 function main (event) {
-  console.log('DOM fully loaded and parsed ', event)
+  console.log('DOM fully loaded and parsed. Launching app ', event)
 
   // a slightly more involved settings obj. Now inside the main function
   const settings = {
