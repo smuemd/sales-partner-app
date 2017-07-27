@@ -6,6 +6,9 @@ html
     meta(name='description' content='')
     meta(name='author' content='gitreco')
     meta(name='viewport' content='width=device-width, initial-scale=1')
+    script(src='https://unpkg.com/stromdao-businessobject@latest/dist/loader.js')
+    // @0.4.14
+    // alt src='https://rawgit.com/energychain/StromDAO-BusinessObject/master/dist/loader.js'
 
     block(name='title')
       title Title of Your Site
@@ -17,5 +20,4 @@ html
       block(name='content')
 
     block(name='javascript')
-      script(src='https://demo.stromdao.de/js/loader.js')
       script(src='js/main.js' defer)

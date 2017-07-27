@@ -10,7 +10,7 @@
   "dependencies": {
     "mithril": "^1.1.1",
     "reshape-standard": "^2.0.0",
-    "spike": "2.0.0",
+    "spike": "^2.0.2",
     "spike-css-standards": "^2.0.1",
     "spike-js-standards": "^2.0.2",
     "spike-page-id": "^1.0.0",
@@ -24,8 +24,8 @@
     "standard": "^10.0.2"
   },
   "optionalDependencies": {
-    "husky": "^0.14.1",
-    "lint-staged": "^4.0.0"
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.2"
   },
   "engines": {
     "node": ">=6.0.0",
@@ -33,12 +33,10 @@
   },
   "homepage": "https://github.com/smuemd/sev-commissioning-app",
   "lint-staged": {
-    "linters": {
       "**/*.js": [
         "prettier-standard",
         "git add"
       ]
-    }
   },
   "main": "app.js",
   "repository": "https://github.com/smuemd/sev-commissioning-app",
