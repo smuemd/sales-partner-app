@@ -1,6 +1,7 @@
 /* global node */
 'use strict'
 import m from 'mithril'
+import { displayEuro } from './helpers/helperFunctions'
 
 window.addEventListener('DOMContentLoaded', main)
 function main () {
@@ -21,6 +22,7 @@ function main () {
     routesDesc: [
       { name: 'Home', route: '/' },
       { name: 'Login', route: '/login' },
+      { name: 'Logout', route: '/logout' },
       { name: 'Item', route: '/item/:id' }
     ]
   }
@@ -36,13 +38,26 @@ function main () {
 
 const view = (function () {
   function view (model, actions) {
-    return m('.app', vwNav(model, actions), vwPage(model, actions))
+    return m(
+      '.app',
+      vwHeader(model, actions),
+      vwPage(model, actions),
+      vwFooter()
+    )
+  }
+
+  function vwHeader (model, actions) {
+    return m('.header', { class: 'layout' }, vwNav(model, actions))
+  }
+
+  function vwFooter () {
+    return m('.footer', { class: 'layout' }, '(FOOTER)')
   }
 
   function vwNav (model, actions) {
     let defaults = [
       { name: 'Home', route: '/' },
-      { name: 'Login', route: '/login' },
+
       {
         name: 'UST',
         route: '/item/0x4caB5660420BECAF280553b8c5634668379b81E0'
@@ -81,8 +96,14 @@ const view = (function () {
       }
     ]
 
+    defaults.push(
+      model.user.token
+        ? { name: 'Logout', route: '/logout' }
+        : { name: 'Login', route: '/login' }
+    )
+
     return m(
-      'ul.nav',
+      'nav',
       // model.routesDesc.map(function (itm) {
       //   let href = defaults[itm.route] || itm.route
       //   return m(
@@ -92,9 +113,7 @@ const view = (function () {
       // })
       defaults.map(function (item) {
         let href = item.route
-        return [
-          m('li', m('a', { href: href, oncreate: m.route.link }, item.name))
-        ]
+        return [m('a', { href: href, oncreate: m.route.link }, item.name)]
       })
     )
 
@@ -105,12 +124,16 @@ const view = (function () {
 
   function vwPage (model, actions) {
     return [
-      model.page === 'Login'
-        ? vwLogin(model, actions)
-        : model.page === 'Item'
-          ? vwItem(model, actions)
-          : vwHome(model, actions),
-      vwData(model)
+      m('div.content', [
+        model.page === 'Logout'
+          ? vwLogout(model, actions)
+          : model.page === 'Login'
+            ? vwLogin(model, actions)
+            : model.page === 'Item'
+              ? vwItem(model, actions)
+              : vwHome(model, actions),
+        vwData(model)
+      ])
     ]
   }
 
@@ -125,15 +148,33 @@ const view = (function () {
           ? 'User credentials: ' + JSON.stringify(model.user)
           : 'loading...'
       ),
-      m(
-        'pre',
-        { style: style },
-        model.data ? 'App data: ' + JSON.stringify(model.data) : 'loading...'
-      )
+      m('div.appData', model.data ? vwAppData(model) : 'loading...')
+    ]
+  }
+  function vwAppData (model) {
+    return [
+      m('.soll .flexItem', [
+        m('.title', 'Haben'),
+        m('.value', displayEuro(model.data.haben))
+      ]),
+      m('.haben .flexItem', [
+        m('.title', 'Soll'),
+        m('.value', displayEuro(model.data.soll))
+      ]),
+      m('.saldo .flexItem', [
+        m('.title', 'Saldo'),
+        m('.value', displayEuro(model.data.saldo))
+      ])
     ]
   }
 
   function vwHome (model, actions) {
+    return m('div', 'Home Page', ' | ', vwExternalLink())
+  }
+
+  function vwLogout (model, actions) {
+    actions.logoutUser(model)
+    m.redraw()
     return m('div', 'Home Page', ' | ', vwExternalLink())
   }
 
@@ -216,7 +257,8 @@ function createActions (model, dataApi) {
   return {
     onNavigateTo: onNavigateTo,
     authenticateUser: authenticateUser,
-    setModelAttribute: setModelAttribute
+    setModelAttribute: setModelAttribute,
+    logoutUser: logoutUser
   }
 
   function onNavigateTo (routeName, params) {
@@ -336,6 +378,10 @@ function createActions (model, dataApi) {
           console.error(err)
         })
     )
+  }
+
+  function logoutUser (model) {
+    ;[model.user.token, model.user.extId, model.user.secret] = [undefined]
   }
 }
 

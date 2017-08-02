@@ -1,4 +1,105 @@
+
 body {
-  padding: 50px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font- family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
 }
+
+.app{
+	display: flex;
+	flex-direction: column;
+}
+
+.content{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 5px;
+}
+
+div.header, div.footer{
+	 height: 40px;
+	 background-color: #444;
+	 color: white;
+	 position: absolute;
+	 margin: 0px 0px 0px 0px;
+	 background-color: #444;
+	 width: 100%;
+}
+div.footer{
+	position: fixed;
+	bottom: 0px;
+}
+
+nav {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1;
+	height: 100%;
+}
+
+nav > a {
+	padding-left: 10px;
+	text-decoration: none;
+	color: white;
+	cursor: pointer;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	flex: 1;
+}
+
+nav a:hover{
+	cursor: pointer;
+	background-color: #24292e;
+}
+
+div.footer {
+	bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+.appData {
+  margin: 80px;	
+  padding: 10px;	
+  display: flex;	
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
+.flexItem {
+	height: 200px;
+	width: 300px;
+	background-color: white;
+	margin: 25px;
+}
+
+.flexItem > .title {
+	display: flex;
+	padding-left: 5px;
+	align-items: center;
+	color: black;
+	font-weight: bold;
+	min-height: 30px;
+	border-top: 1px solid #ccc!important;
+	border-right: 1px solid #ccc!important;
+	border-left: 1px solid #ccc!important;
+	background-color: #f1f1f1!important;
+}
+
+.flexItem > .value {
+	display: flex;
+	font-weight: bold;
+	align-items: center;
+	justify-content: center;
+	height: 200px;
+	border: 1px solid #ccc!important;
+	border-bottom: 1px solid #ccc!important;
+	border-right: 1px solid #ccc!important;
+	border-left: 1px solid #ccc!important;
+	background-color: #ffffff!important;
+}
+
