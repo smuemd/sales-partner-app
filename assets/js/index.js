@@ -56,43 +56,52 @@ const view = (function () {
 
   function vwNav (model, actions) {
     let defaults = [
-      { name: 'Home', route: '/' },
+      { name: 'Home', route: '/', cssClass: 'fa fa-home' },
 
       {
         name: 'UST',
-        route: '/item/0x4caB5660420BECAF280553b8c5634668379b81E0'
+        route: '/item/0x4caB5660420BECAF280553b8c5634668379b81E0',
+        cssClass: ''
       },
       {
         name: 'EEG',
-        route: '/item/0x9B6084a9a35Fc638A67Fd43d6c73B9325263D2f5'
+        route: '/item/0x9B6084a9a35Fc638A67Fd43d6c73B9325263D2f5',
+        cssClass: ''
       },
       {
         name: 'Stromsteuer',
-        route: '/item/0xE4Dd81107246BC8366a28b2F346c1F3C0146526d'
+        route: '/item/0xE4Dd81107246BC8366a28b2F346c1F3C0146526d',
+        cssClass: ''
       },
       {
         name: 'Konzessionsabgabe',
-        route: '/item/0xC3d7291E403703Ae8BbF1d924C854c60B617D611'
+        route: '/item/0xC3d7291E403703Ae8BbF1d924C854c60B617D611',
+        cssClass: ''
       },
       {
         name: 'KWK Umlage',
-        route: '/item/0xAc67A65B42186284e3c1748927Ce2590ad51390b'
+        route: '/item/0xAc67A65B42186284e3c1748927Ce2590ad51390b',
+        cssClass: ''
       },
       {
         name: '§19 Umlage',
-        route: '/item/0x5be5c47D592f1eaE734c2f297a396bb5DE2610d5'
+        route: '/item/0x5be5c47D592f1eaE734c2f297a396bb5DE2610d5',
+        cssClass: ''
       },
       {
         name: 'Logistik',
-        route: '/item/0x6011229E95916A766DC525b68866CB082be4b252'
+        route: '/item/0x6011229E95916A766DC525b68866CB082be4b252',
+        cssClass: ''
       },
       {
         name: 'ledger',
-        route: '/item/0x19BF166624F485f191d82900a5B7bc22Be569895'
+        route: '/item/0x19BF166624F485f191d82900a5B7bc22Be569895',
+        cssClass: ''
       },
       {
         name: 'smpc',
-        route: '/item/0x2F516D1e3dcB330BB44c00cb919ab5081075C77E'
+        route: '/item/0x2F516D1e3dcB330BB44c00cb919ab5081075C77E',
+        cssClass: ''
       }
     ]
 
@@ -113,7 +122,17 @@ const view = (function () {
       // })
       defaults.map(function (item) {
         let href = item.route
-        return [m('a', { href: href, oncreate: m.route.link }, item.name)]
+        return [
+          m(
+            'a',
+            {
+              href: href,
+              class: `${item.cssClass} ${isActive(item.name)}`,
+              oncreate: m.route.link
+            },
+            item.name
+          )
+        ]
       })
     )
 
