@@ -111,6 +111,11 @@ div.footer {
 	margin-left: 3px;
 }
 
+loginForm {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 loginForm form{
 	display: flex;
 	height: 80%;
@@ -120,6 +125,8 @@ loginForm form{
 	flex-wrap: wrap;
 	align-items: center;
 }
+
+loginForm form > * { margin: 15px; }
 
 loginForm form > input {
     padding: 10px 20px;
@@ -176,7 +183,10 @@ simpleMenu {display: none;}
       flex-direction: column;
     }
 
-    .content {
+    .content, loginForm form {
   		flex-direction: column;
 	}
+
+	loginForm form > * { margin: 1px; }
+
 }
