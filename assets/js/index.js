@@ -56,7 +56,7 @@ const view = (function () {
 
   function vwNav (model, actions) {
     let defaults = [
-      { name: 'Home', route: '/', cssClass: 'fa fa-home' },
+      { name: 'Home', route: '/', cssClass: 'fa fa-home home' },
 
       {
         name: 'UST',
@@ -110,9 +110,32 @@ const view = (function () {
         ? { name: 'Logout', route: '/logout' }
         : { name: 'Login', route: '/login' }
     )
-
+    /*
     return m(
       'nav',
+         [m('select',
+            defaults.map(function (item) {
+              let href = item.route
+              return [m('option',{value: href}, item.name)]
+            })),
+            defaults.map(function (item) {
+              let href = item.route
+              return [
+                  m('a',
+                      {
+                        href: href,
+                        class: `${item.cssClass} ${isActive(item.name)}`,
+                        oncreate: m.route.link
+                      },
+                      item.name
+                    )
+                  ]
+            })
+        ]
+    )
+*/
+
+    return m('nav', [
       // model.routesDesc.map(function (itm) {
       //   let href = defaults[itm.route] || itm.route
       //   return m(
@@ -120,21 +143,34 @@ const view = (function () {
       //     m('a', { href: href, oncreate: m.route.link }, itm.name)
       //   )
       // })
-      defaults.map(function (item) {
-        let href = item.route
-        return [
-          m(
-            'a',
-            {
-              href: href,
-              class: `${item.cssClass} ${isActive(item.name)}`,
-              oncreate: m.route.link
-            },
-            item.name
-          )
-        ]
-      })
-    )
+      m('simpleMenu', [
+        m('a', { href: '/', class: 'fa fa-home' }),
+        m('a', {
+          href: '#',
+          class: 'menuBar fa fa-bars',
+          onclick: function () {
+            document.querySelector('largeMenu').classList.toggle('showFlex')
+          }
+        })
+      ]),
+      m(
+        'largeMenu',
+        defaults.map(function (item) {
+          let href = item.route
+          return [
+            m(
+              'a',
+              {
+                href: href,
+                class: `${item.cssClass} ${isActive(item.name)}`,
+                oncreate: m.route.link
+              },
+              item.name
+            )
+          ]
+        })
+      )
+    ])
 
     function isActive (page) {
       return model.page === page ? '.active' : ''
@@ -171,20 +207,22 @@ const view = (function () {
     ]
   }
   function vwAppData (model) {
-    return [
-      m('.soll .flexItem', [
-        m('.title', 'Haben'),
-        m('.value', displayEuro(model.data.haben))
-      ]),
-      m('.haben .flexItem', [
-        m('.title', 'Soll'),
-        m('.value', displayEuro(model.data.soll))
-      ]),
-      m('.saldo .flexItem', [
-        m('.title', 'Saldo'),
-        m('.value', displayEuro(model.data.saldo))
-      ])
-    ]
+    if (model.user.token) {
+      return [
+        m('.soll .accountData', [
+          m('.title', 'Haben'),
+          m('.value', displayEuro(model.data.haben))
+        ]),
+        m('.haben .accountData', [
+          m('.title', 'Soll'),
+          m('.value', displayEuro(model.data.soll))
+        ]),
+        m('.saldo .accountData', [
+          m('.title', 'Saldo'),
+          m('.value', displayEuro(model.data.saldo))
+        ])
+      ]
+    }
   }
 
   function vwHome (model, actions) {
@@ -200,41 +238,43 @@ const view = (function () {
   function vwLogin (model, actions) {
     return [
       m('div', 'Login Page', ' | ', vwExternalLink()),
-      m(
-        'form',
-        {
-          onsubmit: function (e) {
-            console.log(e)
-            e.preventDefault()
-            actions.authenticateUser(model.user.extId, model.user.secret) // NOTE: this redirects to base route '/'
-          }
-        },
-        [
-          m('label.label', 'Username'),
-          m('input[type=text][placeholder=demo]', {
-            oninput: m.withAttr('value', function (value) {
-              model.user.extId = value
-              console.info('username: ', model.user.extId)
+      m('loginForm', [
+        m(
+          'form',
+          {
+            onsubmit: function (e) {
+              console.log(e)
+              e.preventDefault()
+              actions.authenticateUser(model.user.extId, model.user.secret) // NOTE: this redirects to base route '/'
+            }
+          },
+          [
+            m('label.label', 'Username'),
+            m('input[type=text][placeholder=demo]', {
+              oninput: m.withAttr('value', function (value) {
+                model.user.extId = value
+                console.info('username: ', model.user.extId)
+              }),
+              value: model.user.extId
             }),
-            value: model.user.extId
-          }),
-          m('label.label', 'password'),
-          m('input[type=password][placeholder=public&insecure]', {
-            oninput: m.withAttr('value', function (value) {
-              model.user.secret = value
-              console.info('secret: ', model.user.secret)
+            m('label.label', 'password'),
+            m('input[type=password][placeholder=public&insecure]', {
+              oninput: m.withAttr('value', function (value) {
+                model.user.secret = value
+                console.info('secret: ', model.user.secret)
+              }),
+              value: model.user.secret
             }),
-            value: model.user.secret
-          }),
-          m(
-            'button[type=submit]',
-            {
-              // onclick: actions.onNavigateTo.bind(null, 'Home', {}) // handled in submit via m.route.set()
-            },
-            'Save'
-          )
-        ]
-      )
+            m(
+              'button[type=submit]',
+              {
+                // onclick: actions.onNavigateTo.bind(null, 'Home', {}) // handled in submit via m.route.set()
+              },
+              'Login'
+            )
+          ]
+        )
+      ])
     ]
   }
 
