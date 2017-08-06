@@ -9,13 +9,14 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-
+/*
 .content{
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-between;
 }
+*/
 
 nav {height: 100%;}
 
@@ -75,8 +76,8 @@ div.footer {
 
 
 .accountData {
-	height: 200px;
-	width: 300px;
+	min-height: 200px;
+	min-width: 300px;
 	background-color: white;
 	margin: 10px;
 }
@@ -86,6 +87,7 @@ div.footer {
 	padding-left: 5px;
 	align-items: center;
 	color: black;
+	flex-wrap: wrap;
 	font-weight: bold;
 	min-height: 25px;
 	border-top: 1px solid #ccc!important;
@@ -96,10 +98,11 @@ div.footer {
 
 .accountData > .value {
 	display: flex;
+	flex-wrap: wrap;
 	font-weight: bold;
 	align-items: center;
 	justify-content: center;
-	height: 175px;
+	min-height: 175px;
 	border: 1px solid #ccc!important;
 	border-bottom: 1px solid #ccc!important;
 	border-right: 1px solid #ccc!important;
@@ -149,7 +152,8 @@ button {
 
 simpleMenu {display: none;}
 
-@media only screen and (max-width: 500px) {
+
+@media only screen and (max-width: 700px) {
 
 
 	.showFlex {
@@ -185,8 +189,15 @@ simpleMenu {display: none;}
 
     .content, loginForm form {
   		flex-direction: column;
+  		flex-wrap: wrap;
 	}
 
 	loginForm form > * { margin: 1px; }
 
+	.appData {
+	  flex-direction: column;
+	  margin: auto auto 80px auto;	
+  	  padding: 10px;
+  	  flex-wrap: wrap;
+	}
 }
