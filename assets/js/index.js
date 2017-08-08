@@ -1,7 +1,12 @@
 /* global node */
 'use strict'
 import m from 'mithril'
-import { displayEuro } from './helpers/helperFunctions'
+import {
+  displayEuro,
+  readCookie,
+  makeCookie,
+  rmCookie
+} from './helpers/helperFunctions'
 
 window.addEventListener('DOMContentLoaded', main)
 function main () {
@@ -55,61 +60,62 @@ const view = (function () {
   }
 
   function vwNav (model, actions) {
-    let defaults = [
-      { name: 'Home', route: '/', cssClass: 'fa fa-home home' },
-
-      {
-        name: 'UST',
-        route: '/item/0x4caB5660420BECAF280553b8c5634668379b81E0',
-        cssClass: ''
-      },
-      {
-        name: 'EEG',
-        route: '/item/0x9B6084a9a35Fc638A67Fd43d6c73B9325263D2f5',
-        cssClass: ''
-      },
-      {
-        name: 'Stromsteuer',
-        route: '/item/0xE4Dd81107246BC8366a28b2F346c1F3C0146526d',
-        cssClass: ''
-      },
-      {
-        name: 'Konzessionsabgabe',
-        route: '/item/0xC3d7291E403703Ae8BbF1d924C854c60B617D611',
-        cssClass: ''
-      },
-      {
-        name: 'KWK Umlage',
-        route: '/item/0xAc67A65B42186284e3c1748927Ce2590ad51390b',
-        cssClass: ''
-      },
-      {
-        name: '§19 Umlage',
-        route: '/item/0x5be5c47D592f1eaE734c2f297a396bb5DE2610d5',
-        cssClass: ''
-      },
-      {
-        name: 'Logistik',
-        route: '/item/0x6011229E95916A766DC525b68866CB082be4b252',
-        cssClass: ''
-      },
-      {
-        name: 'ledger',
-        route: '/item/0x19BF166624F485f191d82900a5B7bc22Be569895',
-        cssClass: ''
-      },
-      {
-        name: 'smpc',
-        route: '/item/0x2F516D1e3dcB330BB44c00cb919ab5081075C77E',
-        cssClass: ''
-      }
-    ]
-
-    defaults.push(
-      model.user.token
-        ? { name: 'Logout', route: '/logout' }
-        : { name: 'Login', route: '/login' }
-    )
+    let defaults = [{ name: 'Home', route: '/', cssClass: 'fa fa-home home' }]
+    if (readCookie('userToken')) {
+      defaults.push(
+        {
+          name: 'UST',
+          route: '/item/0x4caB5660420BECAF280553b8c5634668379b81E0',
+          cssClass: ''
+        },
+        {
+          name: 'EEG',
+          route: '/item/0x9B6084a9a35Fc638A67Fd43d6c73B9325263D2f5',
+          cssClass: ''
+        },
+        {
+          name: 'Stromsteuer',
+          route: '/item/0xE4Dd81107246BC8366a28b2F346c1F3C0146526d',
+          cssClass: ''
+        },
+        {
+          name: 'Konzessionsabgabe',
+          route: '/item/0xC3d7291E403703Ae8BbF1d924C854c60B617D611',
+          cssClass: ''
+        },
+        {
+          name: 'KWK Umlage',
+          route: '/item/0xAc67A65B42186284e3c1748927Ce2590ad51390b',
+          cssClass: ''
+        },
+        {
+          name: '§19 Umlage',
+          route: '/item/0x5be5c47D592f1eaE734c2f297a396bb5DE2610d5',
+          cssClass: ''
+        },
+        {
+          name: 'Logistik',
+          route: '/item/0x6011229E95916A766DC525b68866CB082be4b252',
+          cssClass: ''
+        },
+        {
+          name: 'ledger',
+          route: '/item/0x19BF166624F485f191d82900a5B7bc22Be569895',
+          cssClass: ''
+        },
+        {
+          name: 'smpc',
+          route: '/item/0x2F516D1e3dcB330BB44c00cb919ab5081075C77E',
+          cssClass: ''
+        },
+        {
+          name: 'Logout',
+          route: '/logout'
+        }
+      )
+    } else {
+      defaults.push({ name: 'Login', route: '/login' })
+    }
     /*
     return m(
       'nav',
@@ -231,8 +237,7 @@ const view = (function () {
 
   function vwLogout (model, actions) {
     actions.logoutUser(model)
-    m.redraw()
-    return m('div', 'Home Page', ' | ', vwExternalLink())
+    m.route.set('/')
   }
 
   function vwLogin (model, actions) {
@@ -360,7 +365,9 @@ function createActions (model, dataApi) {
         model.user.extId = extId
         model.user.secret = secret
         model.user['authLevel'] = data.auth === 'demo' ? 'readonly' : 'write'
-
+        makeCookie('userToken', data.token, { expires: 1 / 24 })
+        makeCookie('secret', secret, { expires: 1 / 24 })
+        makeCookie('extId', extId, { expires: 1 / 24 })
         console.log(extId, ' authenticated.')
         console.log('auth response obj:  ', data)
         m.route.set('/') // TODO: Redirect to previous route
@@ -440,6 +447,9 @@ function createActions (model, dataApi) {
   }
 
   function logoutUser (model) {
+    rmCookie('userToken')
+    rmCookie('secret')
+    rmCookie('extId')
     ;[model.user.token, model.user.extId, model.user.secret] = [undefined]
   }
 }
