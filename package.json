@@ -9,6 +9,7 @@
   "bugs": "https://github.com/gitreco/sev-commissioning-app/issues",
   "dependencies": {
     "mithril": "^1.1.1",
+    "powerform": "^2.6.10",
     "reshape-standard": "^2.0.0",
     "spike": "^2.0.2",
     "spike-css-standards": "^2.0.1",
@@ -33,10 +34,10 @@
   },
   "homepage": "https://github.com/smuemd/sev-commissioning-app",
   "lint-staged": {
-      "**/*.js": [
-        "prettier-standard",
-        "git add"
-      ]
+    "**/*.js": [
+      "prettier-standard",
+      "git add"
+    ]
   },
   "main": "app.js",
   "repository": "https://github.com/smuemd/sev-commissioning-app",

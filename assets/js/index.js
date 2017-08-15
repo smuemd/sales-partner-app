@@ -7,6 +7,7 @@ import {
   makeCookie,
   rmCookie
 } from './helpers/helperFunctions'
+import { UserformValidator } from './helpers/formHelpers'
 
 window.addEventListener('DOMContentLoaded', main)
 function main () {
@@ -255,23 +256,55 @@ const view = (function () {
           },
           [
             m('label.label', 'Username'),
-            m('input[type=text][placeholder=demo]', {
-              oninput: m.withAttr('value', function (value) {
-                model.user.extId = value
-                console.info('username: ', model.user.extId)
-              }),
-              value: model.user.extId
-            }),
-            m('label.label', 'password'),
-            m('input[type=password][placeholder=public&insecure]', {
-              oninput: m.withAttr('value', function (value) {
-                model.user.secret = value
-                console.info('secret: ', model.user.secret)
-              }),
-              value: model.user.secret
-            }),
             m(
-              'button[type=submit]',
+              `input[type=text][placeholder=demo][name=username] ${UserformValidator.username.isDirty() &&
+              !UserformValidator.username.isValid()
+                ? '.error'
+                : ''}`,
+              {
+                oninput: m.withAttr('value', function (value) {
+                  model.user.extId = value
+                  UserformValidator.username(value)
+                  console.info('username: ', model.user.extId)
+                }),
+                value: model.user.extId,
+                onchange: UserformValidator.username.isValid
+              }
+            ),
+            m(
+              `span.errorText  ${UserformValidator.username.isDirty() &&
+              !UserformValidator.username.isValid()
+                ? '.show'
+                : '.hide'}`,
+              UserformValidator.username.error()
+            ),
+            m('label.label', 'Password'),
+            m(
+              `input[type=password][placeholder=public&insecure][name=password] ${UserformValidator.password.isDirty() &&
+              !UserformValidator.password.isValid()
+                ? '.error'
+                : ''}`,
+              {
+                oninput: m.withAttr('value', function (value) {
+                  model.user.secret = value
+                  UserformValidator.password(value)
+                  console.info('secret: ', model.user.secret)
+                }),
+                onchange: UserformValidator.password.isValid,
+                value: model.user.secret
+              }
+            ),
+            m(
+              `span.errorText  ${UserformValidator.password.isDirty() &&
+              !UserformValidator.password.isValid()
+                ? '.show'
+                : '.hide'}`,
+              UserformValidator.password.error()
+            ),
+            m(
+              `button[type=submit] ${UserformValidator.isValid()
+                ? ''
+                : '[disabled=true]'}`,
               {
                 // onclick: actions.onNavigateTo.bind(null, 'Home', {}) // handled in submit via m.route.set()
               },
@@ -355,30 +388,32 @@ function createActions (model, dataApi) {
   }
 
   function authenticateUser (username, password) {
-    let extId = username || 'demo'
-    let secret = password || 'public&insecure'
-    console.log('authenticateUser secret: ', secret)
-    return dataApi
-      .auth(extId, secret)
-      .then(function (data) {
-        model.user.token = data.token
-        model.user.extId = extId
-        model.user.secret = secret
-        model.user['authLevel'] = data.auth === 'demo' ? 'readonly' : 'write'
-        makeCookie('userToken', data.token, { expires: 1 / 24 })
-        makeCookie('secret', secret, { expires: 1 / 24 })
-        makeCookie('extId', extId, { expires: 1 / 24 })
-        console.log(extId, ' authenticated.')
-        console.log('auth response obj:  ', data)
-        m.route.set('/') // TODO: Redirect to previous route
-      })
-      .then(function () {
-        fetchPublicKey(model.user.extId, model.user.token)
-      })
-      .catch(function (err) {
-        console.error(err)
-        model.data['error'] = err
-      })
+    if (UserformValidator.isValid()) {
+      let extId = username || 'demo'
+      let secret = password || 'public&insecure'
+      console.log('authenticateUser secret: ', secret)
+      return dataApi
+        .auth(extId, secret)
+        .then(function (data) {
+          model.user.token = data.token
+          model.user.extId = extId
+          model.user.secret = secret
+          model.user['authLevel'] = data.auth === 'demo' ? 'readonly' : 'write'
+          makeCookie('userToken', data.token, { expires: 1 / 24 })
+          makeCookie('secret', secret, { expires: 1 / 24 })
+          makeCookie('extId', extId, { expires: 1 / 24 })
+          console.log(extId, ' authenticated.')
+          console.log('auth response obj:  ', data)
+          m.route.set('/') // TODO: Redirect to previous route
+        })
+        .then(function () {
+          fetchPublicKey(model.user.extId, model.user.token)
+        })
+        .catch(function (err) {
+          console.error(err)
+          model.data['error'] = err
+        })
+    }
   }
 
   function fetchPublicKey (extId, token) {
@@ -450,7 +485,12 @@ function createActions (model, dataApi) {
     rmCookie('userToken')
     rmCookie('secret')
     rmCookie('extId')
-    ;[model.user.token, model.user.extId, model.user.secret] = [undefined]
+    model.user = {
+      extId: undefined,
+      secret: undefined,
+      token: undefined
+    }
+    UserformValidator.reset()
   }
 }
 

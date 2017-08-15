@@ -18,11 +18,10 @@ body {
 }
 */
 
-nav {height: 100%;}
+nav { height: 100%; }
 
 div.header, div.footer{
 	 height: 40px;
-	 background-color: #444;
 	 color: white;
 	 margin: 0px 0px 0px 0px;
 	 background-color: #444;
@@ -74,7 +73,6 @@ div.footer {
   align-items: center;
 }
 
-
 .accountData {
 	min-height: 200px;
 	min-width: 300px;
@@ -117,16 +115,24 @@ div.footer {
 loginForm {
 	display: flex;
 	flex-wrap: wrap;
+	flex-direction: column;
+	align-self: center;
+	align-items: center;
+	margin-top: 10%;
 }
 
 loginForm form{
-	display: flex;
 	height: 80%;
+	width: 30%;
 	flex: 1;
-	margin: 80px;	
-  	padding: 10px;
+    display: flex;
 	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: center;
+	align-self: center;
 	align-items: center;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.8), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	border-radius: 5px;
 }
 
 loginForm form > * { margin: 15px; }
@@ -135,6 +141,34 @@ loginForm form > input {
     padding: 10px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+    width: 60%;
+}
+
+loginForm form > button {
+	width: 60%;
+	padding: 10px;
+	font-weight: bold;
+}
+
+.formHeader{
+	background-color: #444;
+	color: white;
+	height: 15%;
+	width: 90%;
+}
+
+.error{
+	border: 2px solid red !important;
+}
+
+.errorText{ color: red;}
+
+.show{
+	display: block !important;
+}
+
+.hide {
+	display: none !important;
 }
 
 button {
@@ -150,8 +184,12 @@ button {
 	font-weight: bold;
 }
 
-simpleMenu {display: none;}
+simpleMenu { display: none; }
 
+button[disabled]:disabled {
+    background: #dddddd !important;
+    cursor: not-allowed;
+}
 
 @media only screen and (max-width: 700px) {
 
@@ -180,7 +218,7 @@ simpleMenu {display: none;}
 		justify-content: space-between;
 	}
 
-	.showFlex, loginForm { flex-direction: column; }
+	.showFlex { flex-direction: column; }
 
     div.header {
       height: 100%;

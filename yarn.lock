@@ -5333,6 +5333,12 @@ postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.2, postcss@^6.0.3, postcss@^6.0.6:
     source-map "^0.5.6"
     supports-color "^4.2.0"
 
+powerform@^2.6.10:
+  version "2.6.10"
+  resolved "https://registry.yarnpkg.com/powerform/-/powerform-2.6.10.tgz#bab0f8c7b9ec7db675d5d44afb93ef50cdb0119d"
+  dependencies:
+    validatex "^0.3.1"
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -7116,6 +7122,10 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
+
+validatex@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/validatex/-/validatex-0.3.1.tgz#99965253f0bf2186f51d43bfafb4d620540fb9ef"
 
 vendors@^1.0.0:
   version "1.0.1"
