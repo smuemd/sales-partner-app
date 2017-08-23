@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge, chrome=1'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='description' content=''>
-    <meta name='author' content='<%= github_username %>'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name='author' content='energychain'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <block name='title'>
-      <title>Title of Your Site</title>
+      <title>Sales Partner App</title>
     </block>
-
     <link rel='stylesheet' href='css/index.css'>
+    <script src='https://unpkg.com/stromdao-businessobject@latest/dist/loader.js'></script>
   </head>
-
-  <body role='document'>
-    <main role='main' id='{{ pageId }}'>
+  <body>
+    <main id='{{ pageId }}'>
       <block name='content'></block>
     </main>
 
@@ -24,5 +21,4 @@
       <script src='js/main.js' defer></script>
     </block>
   </body>
-
 </html>
