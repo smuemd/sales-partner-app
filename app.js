@@ -10,7 +10,9 @@ module.exports = {
   matchers: { html: '*(**/)*.sgr', css: '*(**/)*.css' },
   ignore: ['**/layout.sgr', '**/_*', '**/.*', 'readme.md', 'yarn.lock'],
   reshape: htmlStandards({
-    locals: (ctx) => { return { pageId: pageId(ctx), foo: 'bar' } },
+    locals: ctx => {
+      return { pageId: pageId(ctx), foo: 'bar' }
+    },
     minify: env === 'production'
   }),
   postcss: cssStandards({
@@ -19,5 +21,6 @@ module.exports = {
     minify: env === 'production',
     warnForDuplicates: env !== 'production'
   }),
-  babel: jsStandards()
+  babel: jsStandards(),
+  vendor: 'assets/vendor/**'
 }
