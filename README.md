@@ -4,6 +4,8 @@ A web application to manage sales commissions the STROMDAO Energy Blockchain.
 
 [![Build Status](https://travis-ci.org/smuemd/sales-partner-app.svg?branch=master)](https://travis-ci.org/smuemd/sales-partner-app) [![Coverage Status](https://coveralls.io/repos/github/smuemd/sales-partner-app/badge.svg?branch=master)](https://coveralls.io/github/smuemd/sales-partner-app?branch=master)
 
+A web application to manage sales commissions the STROMDAO Energy Blockchain.
+
 ## Setup
 
 - make sure [node.js](http://nodejs.org) is at version >= `6`
