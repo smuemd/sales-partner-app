@@ -1,56 +1,24 @@
 'use strict'
 import m from 'mithril'
+import settings from './settings'
+import createModel from './model'
+import createDataAPI from './dataAPI'
+import createActions from './actions'
+import createView from './view'
+import createRouteResolver from './routes'
 
-/**
- * StromDAO-businessObject Example
- */
+console.log('you can use ES6 here : )')
 
-// Account model
-const Account = {
-  ledger: '0xfcBfE1e0D5B62b4E281609B150423b0F15082319',
-  id: '0x0022aFE423D59a9f4AC99927a5d6D7E7c4BA017c',
-  soll: 0,
-  haben: 0,
-  saldo: () => {
-    return Account.haben - Account.soll
-  },
+window.addEventListener('DOMContentLoaded', main())
 
-  getLedger: () => document.node.stromkonto(Account.ledger),
+function main () {
+  const model = createModel(settings)
+  const dataAPI = createDataAPI(settings)
+  const actions = createActions(model, dataAPI)
+  const view = createView() // vwApp(model, actions)
+  const routeResolver = createRouteResolver(model, actions, view)
+  const defaultRoute = settings.defaultRoute
 
-  getHaben: () => Account.getLedger().then(ledger => {
-    return ledger.balancesHaben(Account.id).then(haben => {
-      Account.haben = haben
-      return Account.haben
-    })
-  }),
-
-  getSoll: () => Account.getLedger().then(ledger => {
-    return ledger.balancesSoll(Account.id).then(soll => {
-      Account.soll = soll
-      return Account.soll
-    })
-  }),
-
-  getSaldo: () => Promise.all([
-    Account.getHaben(),
-    Account.getSoll()
-  ]).then(values => {
-    return Account.saldo()
-  })
+  m.route.prefix(settings.routePrefix)
+  m.route(document.body, defaultRoute, routeResolver) // m.route(document.querySelector('main'), defaultRoute, routeResolver)
 }
-
-// Applying Model methods
-Account.getSaldo().then(res => {
-  let obj = {
-    account: Account.id,
-    soll: Account.soll,
-    haben: Account.haben,
-    saldo: Account.saldo
-  }
-  console.log(obj)
-
-  /**
-   * Mithril example
-   */
-  m.render(document.querySelector('span.mithril-test'), 'hello world from mithril (' + Account.saldo() + ')')
-})

@@ -1,0 +1,82 @@
+/** @define SampleComponent */
+
+:root {
+  --SampleComponent-border-color: currentcolor;
+  --SampleComponent-border-width: 1px;
+  --SampleComponent-color: inherit;
+  --SampleComponent-disabled-opacity: 0.6;
+  --SampleComponent-font: inherit;
+  --SampleComponent-padding: 0.4em 0.75em;
+}
+
+/**
+ * The SampleComponent classes are best applied to nothing and nothing else.
+ * These components can be used in forms, as calls to action, or as part of the
+ * general UI of the site/app.
+ */
+
+/**
+ * 1. Normalize `box-sizing` across all elements that this component could be
+ *    applied to.
+ * 2. Inherit text color from ancestor.
+ * 3. Inherit font styles from ancestor.
+ * 4. Prevent SampleComponent text from being selectable.
+ */
+
+.SampleComponent {
+  background: transparent;
+  border-color: var(--SampleComponent-border-color);
+  border-style: solid;
+  border-width: var(--SampleComponent-border-width);
+  box-sizing: border-box; /* 1 */
+  color: var(--SampleComponent-color); /* 2 */
+  display: inline-block;
+  font: var(--SampleComponent-font); /* 3 */
+  margin: 0;
+  padding: var(--SampleComponent-padding);
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none; /* 4 */
+}
+
+/**
+ * Remove excess padding and border in Firefox 4+
+ */
+
+.SampleComponent::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/**
+ * Work around a Firefox/IE bug where the transparent `SampleComponent` background
+ * results in a loss of the default `SampleComponent` focus styles.
+ */
+
+.SampleComponent:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+/**
+ * UI states
+ */
+
+.SampleComponent:hover,
+.SampleComponent:focus,
+.SampleComponent:active {
+  text-decoration: none;
+}
+
+.SampleComponent:disabled,
+.SampleComponent.is-disabled {
+  cursor: default;
+  opacity: var(--SampleComponent-disabled-opacity);
+}
+
+.SampleComponent--large { /* ... */ }
+.SampleComponent-title { /* ... */ }
+.SampleComponent-image { /* ... */ }
+.SampleComponent-text { /* ... */ }
+.SampleComponent-time { /* ... */ }
