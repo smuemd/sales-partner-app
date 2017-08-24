@@ -1,8 +1,8 @@
 # sev-commissioning-app
 
-[![Build Status](https://travis-ci.org/smuemd/sev-commissioning-app.svg?branch=master)](https://travis-ci.org/smuemd/sev-commissioning-app) [![Greenkeeper badge](https://badges.greenkeeper.io/smuemd/sales-partner-app.svg)](https://greenkeeper.io/) [![Coverage Status](https://coveralls.io/repos/github/smuemd/sales-partner-app/badge.svg)](https://coveralls.io/github/smuemd/sales-partner-app)
-
 A web application to manage sales commissions the STROMDAO Energy Blockchain.
+
+[![Build Status](https://travis-ci.org/smuemd/sev-commissioning-app.svg?branch=master)](https://travis-ci.org/smuemd/sev-commissioning-app) (https://coveralls.io/repos/github/smuemd/sales-partner-app/badge.svg)](https://coveralls.io/github/smuemd/sales-partner-app)
 
 ## Setup
 
