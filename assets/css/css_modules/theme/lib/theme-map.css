@@ -1,0 +1,24 @@
+/**
+ * components-arrange
+ */
+
+:root {
+  --Arrange-gutter-size: var(--space-small-px);
+}
+
+/**
+ * components-grid
+ */
+
+:root {
+  --Grid-gutter-size: var(--space-large-px);
+}
+
+
+/**
+ * components-sample-component
+ */
+
+:root {
+  --SampleComponent-color: #945888;
+}

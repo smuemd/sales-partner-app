@@ -1,0 +1,55 @@
+/**
+ * @define utilities
+ * Clean sample utility
+ *
+ * A sampleUtility without any text-decoration at all.
+ */
+
+.u-sampleUtilityClean,
+.u-sampleUtilityClean:hover,
+.u-sampleUtilityClean:focus,
+.u-sampleUtilityClean:active {
+  text-decoration: none !important;
+}
+
+/**
+ * sample utility complex
+ *
+ * A common pattern is to have a sampleUtility with several pieces of text and/or an
+ * icon, where only one piece of text should display the underline when the
+ * sampleUtility is the subject of user interaction.
+ *
+ * Example HTML:
+ *
+ * <a class="u-sampleUtilityComplex" href="#">
+ *   sampleUtility complex
+ *   <span class="u-sampleUtilityComplexTarget">target</span>
+ * </a>
+ */
+
+.u-sampleUtilityComplex,
+.u-sampleUtilityComplex:hover,
+.u-sampleUtilityComplex:focus,
+.u-sampleUtilityComplex:active {
+  text-decoration: none !important;
+}
+
+.u-sampleUtilityComplex:hover .u-sampleUtilityComplexTarget,
+.u-sampleUtilityComplex:focus .u-sampleUtilityComplexTarget,
+.u-sampleUtilityComplex:active .u-sampleUtilityComplexTarget {
+  text-decoration: underline !important;
+}
+
+/**
+ * Block-level sampleUtility
+ *
+ * Combination of traits commonly used in vertical navigation lists.
+ */
+
+.u-sampleUtilityBlock,
+.u-sampleUtilityBlock:hover,
+.u-sampleUtilityBlock:focus,
+.u-sampleUtilityBlock:active {
+  display: block !important;
+  text-decoration: none !important;
+}
