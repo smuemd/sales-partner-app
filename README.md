@@ -2,7 +2,7 @@
 
 A web application to manage sales commissions the STROMDAO Energy Blockchain.
 
-[![Build Status](https://travis-ci.org/smuemd/sev-commissioning-app.svg?branch=master)](https://travis-ci.org/smuemd/sev-commissioning-app) (https://coveralls.io/repos/github/smuemd/sales-partner-app/badge.svg)](https://coveralls.io/github/smuemd/sales-partner-app)
+[![Build Status](https://travis-ci.org/smuemd/sev-commissioning-app.svg?branch=master)] [![Coverage Status](https://coveralls.io/repos/github/smuemd/sales-partner-app/badge.svg?branch=master)](https://coveralls.io/github/smuemd/sales-partner-app?branch=master)
 
 ## Setup
 
