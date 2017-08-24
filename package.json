@@ -5,7 +5,6 @@
   "author": "energychain",
   "license": "MIT",
   "ava": {
-    "files": "test/compile.js",
     "require": [
       "babel-register"
     ],
