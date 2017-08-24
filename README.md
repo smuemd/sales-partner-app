@@ -1,4 +1,4 @@
-# sev-commissioning-app
+# Sales partner app
 
 A web application to manage sales commissions the STROMDAO Energy Blockchain.
 
