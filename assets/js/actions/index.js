@@ -1,91 +1,204 @@
 'use strict'
 import m from 'mithril'
 
-/**
- * Create actions
- *
- * @param model
- * @param dataAPI
- * @returns {{onNavigateTo: onNavigateTo, log}}
- *
- * export public actions methods that mutate the model
- *
- */
-export default function createActions (model, dataAPI) {
+export default createActions
+
+let model
+let dataApi
+
+function createActions (mdl, api) {
+  model = mdl
+  dataApi = api
+
   return {
-    onNavigateTo: onNavigateTo(model, dataAPI),
-    log: logOnNavigate(model)
+    onNavigateTo: onNavigateTo(model),
+    log: logOnNavigate(model, dataApi),
+    authenticateUser: authenticateUser(model, dataApi),
+    logout: logoutUser(model, dataApi)
   }
 }
 
-/**
- * onNavigateTo Wrapper
- *
- * @param model
- * @param dataAPI
- * @returns {Function}
- */
-function onNavigateTo (model, dataAPI) {
+/** Mutates model attributes depending on current route  */
+function onNavigateTo (model) {
   /**
-   * OnNavigateTo function
-   *
-   * @param routeName
-   * @param params
-   *
-   * Public method
-   * Get called by route resolver on every route change
-   *
-   * 1. sets routeName and page properties in the model
-   * 2. sets route parameters in the model
-   * 3. Fetches account debit value from a Fury leger contract by calling fetchAccountSoll method via dataAPI
-   * 4. Injects ledger account information into model data property
-   * 5. Manually re-renders the view with m.redraw()
+   * 1. sets model.routeName and model.page properties
+   * 2. saves route parameters
    */
   return function (routeName, params) {
-    console.info('route: ', routeName)
-    model.routeName = routeName /* 1 */
-    model.page = routeName /* 2 */
-    Object.assign(model.params, params || {})
+    console.info('routeName: ', routeName)
+    console.info('route params: ', params)
+    model.routeName = model.page = routeName
+    model.params = params || {}
 
-    if (routeName === 'Item') {
-      let ledger = '0x19BF166624F485f191d82900a5B7bc22Be569895'
-      let account = params.id
+    // TODO: item = account / id = address / make address dynamic
+    if (model.routeName === 'Home' && model.user.remoteNode.address) {
+      m.route.set('/item/' + model.user.remoteNode.address)
+      return
+    }
 
-      dataAPI.boFetchAccountSoll(ledger, account) /* 3 */
-        .then(function (soll) {
-          model.data = {
-            ledger: ledger,
-            account: account,
-            soll: soll,
-            haben: undefined,
-            saldo: undefined
-          } /* 4 */
-          m.redraw() /* 5 */
-        })
-        .catch(function (err) {
-          console.error(err)
-        })
+    // checkAuth
+    if (!checkAuth()) {
+      redirectToLogin()
+      return
+    }
+    if (model.routeName === 'Item' && params.id) {
+      fetchAccountData(params.id) // model partnerAccount.address || model.user.remoteNode.address
     }
   }
 }
 
-/**
- * logOnNavigate wrapper
- *
- * public test method defined outside create actions function scope
- * 1. returns method to log model and route information in the console on every route change.
- * 2. console log the full model
- * 2. console log route type (item)
- * 3. console log route params
- *
- * @param model
- * @returns {Function}
- */
+function fetchAccountData (accountAddress) {
+  let node = dataApi.furyNode
+  let ledger = '0x19BF166624F485f191d82900a5B7bc22Be569895' // TODO derive form settings
+  let account = accountAddress || window.localStorage.getItem('user[' + model.user.extId + ']:remoteNode:address')
+  console.info('fetchAccountData() was triggerd.')
+  console.log(node, ledger, account)
+  if (!node || !ledger || !account) {
+    throw Error('Sales node or ledger or account is undefined')
+  }
+  Promise.all([
+    dataApi.fetchAccountTxHistory(node, ledger, account, 7504),
+    dataApi.fetchAccountHaben(node, ledger, account),
+    dataApi.fetchAccountSoll(node, ledger, account)
+  ])
+    .then((a) => {
+      a.push((a[1] - a[2]))
+      Object.assign(model.partnerAccount, {
+        address: account,
+        haben: setValue(a[1]),
+        soll: setValue(a[2]),
+        saldo: setValue(a[3]),
+        transactions: a[0],
+        status: { message: 'loaded', timestamp: Date.now() }
+      })
+      m.redraw()
+    })
+    .catch(function (err) {
+      console.error(err)
+    })
+}
 
-function logOnNavigate (model) {
+// helper functions for fetchAccountData
+function setValue (value) {
+  return {
+    value: value,
+    unit: 'raw value',
+    toEuro: valueToEuro
+  }
+}
+
+function valueToEuro () {
+  return {
+    value: this.value / 10000000000000,
+    unit: 'Euro'
+  }
+}
+
+/**
+ * @param model
+ * @return {Function}
+ */
+function logOnNavigate (model, dataApi) {
   return function (itemName, params) {
     console.info('model:  ', model)
-    console.info('itemName:  ', itemName)
-    console.info('params:  ', params)
+  }
+}
+
+function checkAuth () {
+  let extId = window.localStorage.getItem('user:extId')
+  let token = window.localStorage.getItem('user:token')
+  // let infoMsg = 'User  "' + extId + '" is authenticated'
+  let warnMsg = 'User is not authenticated: Please log in.'
+  if (!token || !extId) {
+    console.warn(warnMsg)
+    return false
+  }
+  if (token && extId) {
+    // console.info(infoMsg)
+    return true
+  }
+}
+
+function redirectToLogin () {
+  if (model.routeName === 'Login') {
+    model.routeRedirect = model.routeRedirect || '/#!/'
+    return
+  }
+
+  let reRoute = window.location.pathname + window.location.hash + window.location.search // grab just the route, not the domain
+  model.routeRedirect = reRoute
+  window.history.pushState({}, 'Login', '/#!/login?redirect=true') // redirect to Login page
+  model.routeName = model.page = 'Login'
+}
+
+function authenticateUser (mdl, api) {
+  model = mdl
+  dataApi = api
+  return function (username, password) {
+    let extId = username
+    let secret = password
+    let localStore = window.localStorage
+    let reRoute = model.routeRedirect
+      ? model.routeRedirect.slice(3)
+      : window.location.origin
+
+    dataApi.authenticateUser(extId, secret)
+      .then(function (obj) {
+        console.info('Success: remoteNode with extId "' + extId + '" authenticated')
+        // console.log('authdata', obj)
+        localStore.setItem('user:extId', extId)
+        localStore.setItem('user:token', obj.token)
+        model.user.extId = extId
+        model.user.token = obj.token
+        model.user.authLevel = obj.auth === 'demo' ? 'readonly' : 'write'
+
+        dataApi.furyNode = dataApi.createFuryNode(extId)
+        console.info('Success: localNode with extId "' + extId + '" created.')
+        localStore.setItem('localNode:__persistentAddress', dataApi.furyNode.nodeWallet.address)
+        localStore.setItem('localNode:__persistentPk', dataApi.furyNode.nodeWallet.privateKey)
+        localStore.setItem('user[' + extId + ']:localNode:address', dataApi.furyNode.wallet.address)
+        localStore.setItem('user[' + extId + ']:localNode:pk', dataApi.furyNode.wallet.privateKey)
+        model.user.localNode.__persistentAddress = dataApi.furyNode.nodeWallet.address
+        model.user.localNode.__persistentPk = dataApi.furyNode.nodeWallet.privateKey
+        model.user.localNode.address = dataApi.furyNode.wallet.address
+        model.user.localNode.pk = dataApi.furyNode.wallet.privateKey
+
+        /* Fetch remote node address (verifies that API token is working) */
+        dataApi.fetchRemoteNodeAddress(extId, obj.token)
+          .then(address => {
+            console.info('Success! Remote node address fetched via REST API: ', address)
+            localStore.setItem('user[' + extId + ']:remoteNode:address', address)
+            model.user.remoteNode.address = address
+            model.partnerAccount.address = address
+            model.routeRedirect = false
+          })
+          .then(() => {
+            // reroute to original route & update routeRedirect state
+            m.route.set(reRoute)
+          })
+          .catch(err => {
+            let errMsg = 'Failed to fetch address of remoteNode with extId "' + extId + '"'
+            console.error(errMsg, err)
+          })
+      })
+      .catch(function (err) {
+        let errMsg = 'Authentication failed'
+        console.error(errMsg, err)
+      })
+  }
+}
+
+function logoutUser (model, dataApi) {
+  return function () {
+    model.user.extId = undefined
+    model.user.token = undefined
+    model.user.authLevel = undefined
+    model.user.localNode = {}
+    model.user.remoteNode = {}
+    model.partnerAccount = {}
+    dataApi.furyNode = undefined
+    window.localStorage.removeItem('user:extId')
+    window.localStorage.removeItem('user:token')
+    redirectToLogin()
   }
 }
