@@ -4074,9 +4074,9 @@ linkify-it@^2.0.0:
   dependencies:
     uc.micro "^1.0.1"
 
-lint-staged@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-4.0.3.tgz#1ce55591bc2c83a781a90b69a0a0c8aa0fc6370b"
+lint-staged@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-4.0.4.tgz#9ca6968b30dfbfe81365b7a763cd4f4992896553"
   dependencies:
     app-root-path "^2.0.0"
     cosmiconfig "^1.1.0"
@@ -4337,9 +4337,9 @@ map-visit@^0.1.5:
     lazy-cache "^2.0.1"
     object-visit "^0.3.4"
 
-markdown-it@^8.2.2:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.3.2.tgz#df4b86530d17c3bc9beec3b68d770b92ea17ae96"
+markdown-it@^8.4.0:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.0.tgz#e2400881bf171f7018ed1bd9da441dac8af6306d"
   dependencies:
     argparse "^1.0.7"
     entities "~1.1.1"
@@ -6291,9 +6291,9 @@ reshape-content@^0.2.0:
     reshape-plugin-util "^0.2.1"
     when "^3.7.7"
 
-reshape-eval-code@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/reshape-eval-code/-/reshape-eval-code-0.3.3.tgz#a366ff29f893a16beb94c48722c028ac54af29a8"
+reshape-eval-code@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/reshape-eval-code/-/reshape-eval-code-0.3.4.tgz#159335800fca1642ce4b6bebdba2053fbdfa0f24"
   dependencies:
     reshape-code-gen "^0.2.1"
     reshape-parser "^0.2.1"
@@ -6352,20 +6352,20 @@ reshape-retext@^1.0.1:
     retext "^5.0.0"
     when "^3.7.8"
 
-reshape-standard@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/reshape-standard/-/reshape-standard-3.1.0.tgz#dc5131422a7b756a01308af580de1859013b6ffc"
+reshape-standard@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/reshape-standard/-/reshape-standard-3.1.1.tgz#e9d1937f47c2fc6000f5f8d85bfa2be537f071c0"
   dependencies:
-    markdown-it "^8.2.2"
+    markdown-it "^8.4.0"
     reshape-beautify "^0.1.2"
     reshape-content "^0.2.0"
-    reshape-eval-code "^0.3.3"
+    reshape-eval-code "^0.3.4"
     reshape-expressions "^0.1.5"
     reshape-include "^1.0.0"
     reshape-layouts "^1.0.0"
     reshape-minify "^1.1.0"
     reshape-retext "^1.0.1"
-    retext-smartypants "^3.0.0"
+    retext-smartypants "^3.0.1"
 
 reshape@^0.4.1:
   version "0.4.1"
@@ -6434,7 +6434,7 @@ retext-latin@^2.0.0:
     parse-latin "^4.0.0"
     unherit "^1.0.4"
 
-retext-smartypants@^3.0.0:
+retext-smartypants@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/retext-smartypants/-/retext-smartypants-3.0.1.tgz#53d718fde7178a9bc09f120159b0d76cc537fb6c"
   dependencies:
@@ -7192,9 +7192,9 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
-stromdao-businessobject@^0.4.58:
-  version "0.4.58"
-  resolved "https://registry.yarnpkg.com/stromdao-businessobject/-/stromdao-businessobject-0.4.58.tgz#a290fbea37fb558c81142cb688ce3bf2881e23ac"
+stromdao-businessobject@^0.4.59:
+  version "0.4.59"
+  resolved "https://registry.yarnpkg.com/stromdao-businessobject/-/stromdao-businessobject-0.4.59.tgz#e94cec3a1372f848965f1df3faf0f52d708ab37a"
   dependencies:
     ethers "^2.0.3"
     get-random-values "^1.2.0"
