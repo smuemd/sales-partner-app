@@ -7,6 +7,8 @@ import vwLogin from './vwLogin'
 import vwItem from './vwItem'
 import vwData from './components/vwData'
 
+export default createView
+
 function createView () {
   function vwApp (model, actions) {
     return m('main.app', vwNav(model), vwPage(model, actions))
@@ -18,7 +20,7 @@ function createView () {
       {name: 'Login', route: '/login'},
       {
         name: 'Item',
-        route: '/item/0x4caB5660420BECAF280553b8c5634668379b81E0'
+        route: '/item/0x2F516D1e3dcB330BB44c00cb919ab5081075C77E'
       }
     ]
 
@@ -27,9 +29,8 @@ function createView () {
       defaults.map(function (item) {
         let href = item.route
         return [
-          m(
-            'li' + isActive(item.name),
-            m('a', {href: href, oncreate: m.route.link}, item.name)
+          m('li' + isActive(item.name),
+            m('a', { href: href, oncreate: m.route.link }, item.name)
           )
         ]
       })
@@ -40,10 +41,10 @@ function createView () {
     }
   }
 
-  function vwPage (model) {
+  function vwPage (model, actions) {
     return [
       model.page === 'Login'
-        ? vwLogin()
+        ? vwLogin(model, actions)
         : model.page === 'Item' ? vwItem(model) : vwHome(),
       vwData(model)
     ]
@@ -51,5 +52,3 @@ function createView () {
 
   return vwApp // <-- the only "exported" function
 }
-
-export default createView
