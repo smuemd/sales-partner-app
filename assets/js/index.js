@@ -19,6 +19,7 @@ function main () {
   const routeResolver = createRouteResolver(model, actions, view)
   const defaultRoute = settings.defaultRoute
 
-  m.route.prefix(settings.routePrefix)
-  m.route(document.body, defaultRoute, routeResolver) // m.route(document.querySelector('main'), defaultRoute, routeResolver)
+  // m.route.prefix(settings.routePrefix)
+  // m.route(document.body, defaultRoute, routeResolver)
+  m.route(document.querySelector('main'), defaultRoute, routeResolver)
 }
