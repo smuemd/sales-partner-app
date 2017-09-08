@@ -32,7 +32,7 @@ export default function createModel (settings) {
         pk: localStore.getItem('user[' + extId + ']:localNode:pk') || undefined
       },
       remoteNode: {
-        address: localStore.getItem('user[' + extId + ']:remoteNode:address') || undefined,
+        address: localStore.getItem('user[' + extId + ']:remoteNode:address') || undefined
       }
     },
     partnerAccount: {
