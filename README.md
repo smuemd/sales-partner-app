@@ -346,5 +346,3 @@ function createRouteResolver (model, actions, view) {
 }
 
 ```
-
-[TODO] Explain authentication flow using the REST API.
