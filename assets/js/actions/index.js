@@ -32,7 +32,7 @@ function onNavigateTo (model) {
 
     // TODO: item = account / id = address / make address dynamic
     if (model.routeName === 'Home' && model.user.remoteNode.address) {
-      m.route.set('/item/' + model.user.remoteNode.address)
+      m.route.set('/account/' + model.user.remoteNode.address)
       return
     }
 
@@ -41,7 +41,7 @@ function onNavigateTo (model) {
       redirectToLogin()
       return
     }
-    if (model.routeName === 'Item' && params.id) {
+    if (model.routeName === 'Account' && params.id) {
       fetchAccountData(params.id) // model partnerAccount.address || model.user.remoteNode.address
     }
   }
@@ -50,7 +50,11 @@ function onNavigateTo (model) {
 function fetchAccountData (accountAddress) {
   let node = dataApi.furyNode
   let ledger = '0x19BF166624F485f191d82900a5B7bc22Be569895' // TODO derive form settings
-  let account = accountAddress || window.localStorage.getItem('user[' + model.user.extId + ']:remoteNode:address')
+  let account =
+    accountAddress ||
+    window.localStorage.getItem(
+      'user[' + model.user.extId + ']:remoteNode:address'
+    )
   console.info('fetchAccountData() was triggerd.')
   console.log(node, ledger, account)
   if (!node || !ledger || !account) {
@@ -61,8 +65,8 @@ function fetchAccountData (accountAddress) {
     dataApi.fetchAccountHaben(node, ledger, account),
     dataApi.fetchAccountSoll(node, ledger, account)
   ])
-    .then((a) => {
-      a.push((a[1] - a[2]))
+    .then(a => {
+      a.push(a[1] - a[2])
       Object.assign(model.partnerAccount, {
         address: account,
         haben: setValue(a[1]),
@@ -125,7 +129,8 @@ function redirectToLogin () {
     return
   }
 
-  let reRoute = window.location.pathname + window.location.hash + window.location.search // grab just the route, not the domain
+  let reRoute =
+    window.location.pathname + window.location.hash + window.location.search // grab just the route, not the domain
   model.routeRedirect = reRoute
   window.history.pushState({}, 'Login', '/#!/login?redirect=true') // redirect to Login page
   model.routeName = model.page = 'Login'
@@ -142,9 +147,12 @@ function authenticateUser (mdl, api) {
       ? model.routeRedirect.slice(3)
       : window.location.origin
 
-    dataApi.authenticateUser(extId, secret)
+    dataApi
+      .authenticateUser(extId, secret)
       .then(function (obj) {
-        console.info('Success: remoteNode with extId "' + extId + '" authenticated')
+        console.info(
+          'Success: remoteNode with extId "' + extId + '" authenticated'
+        )
         // console.log('authdata', obj)
         localStore.setItem('user:extId', extId)
         localStore.setItem('user:token', obj.token)
@@ -154,20 +162,41 @@ function authenticateUser (mdl, api) {
 
         dataApi.furyNode = dataApi.createFuryNode(extId)
         console.info('Success: localNode with extId "' + extId + '" created.')
-        localStore.setItem('localNode:__persistentAddress', dataApi.furyNode.nodeWallet.address)
-        localStore.setItem('localNode:__persistentPk', dataApi.furyNode.nodeWallet.privateKey)
-        localStore.setItem('user[' + extId + ']:localNode:address', dataApi.furyNode.wallet.address)
-        localStore.setItem('user[' + extId + ']:localNode:pk', dataApi.furyNode.wallet.privateKey)
-        model.user.localNode.__persistentAddress = dataApi.furyNode.nodeWallet.address
-        model.user.localNode.__persistentPk = dataApi.furyNode.nodeWallet.privateKey
+        localStore.setItem(
+          'localNode:__persistentAddress',
+          dataApi.furyNode.nodeWallet.address
+        )
+        localStore.setItem(
+          'localNode:__persistentPk',
+          dataApi.furyNode.nodeWallet.privateKey
+        )
+        localStore.setItem(
+          'user[' + extId + ']:localNode:address',
+          dataApi.furyNode.wallet.address
+        )
+        localStore.setItem(
+          'user[' + extId + ']:localNode:pk',
+          dataApi.furyNode.wallet.privateKey
+        )
+        model.user.localNode.__persistentAddress =
+          dataApi.furyNode.nodeWallet.address
+        model.user.localNode.__persistentPk =
+          dataApi.furyNode.nodeWallet.privateKey
         model.user.localNode.address = dataApi.furyNode.wallet.address
         model.user.localNode.pk = dataApi.furyNode.wallet.privateKey
 
         /* Fetch remote node address (verifies that API token is working) */
-        dataApi.fetchRemoteNodeAddress(extId, obj.token)
+        dataApi
+          .fetchRemoteNodeAddress(extId, obj.token)
           .then(address => {
-            console.info('Success! Remote node address fetched via REST API: ', address)
-            localStore.setItem('user[' + extId + ']:remoteNode:address', address)
+            console.info(
+              'Success! Remote node address fetched via REST API: ',
+              address
+            )
+            localStore.setItem(
+              'user[' + extId + ']:remoteNode:address',
+              address
+            )
             model.user.remoteNode.address = address
             model.partnerAccount.address = address
             model.routeRedirect = false
@@ -177,7 +206,8 @@ function authenticateUser (mdl, api) {
             m.route.set(reRoute)
           })
           .catch(err => {
-            let errMsg = 'Failed to fetch address of remoteNode with extId "' + extId + '"'
+            let errMsg =
+              'Failed to fetch address of remoteNode with extId "' + extId + '"'
             console.error(errMsg, err)
           })
       })
