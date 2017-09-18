@@ -3,5 +3,5 @@
 import m from 'mithril'
 
 export default function vwItem (model) {
-  return [m('div', 'Account Page - viewing account ' + model.params.id)]
+  return [m('div', 'Account Page - viewing account ' + model.params.address)]
 }

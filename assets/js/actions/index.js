@@ -41,8 +41,8 @@ function onNavigateTo (model) {
       redirectToLogin()
       return
     }
-    if (model.routeName === 'Account' && params.id) {
-      fetchAccountData(params.id) // model partnerAccount.address || model.user.remoteNode.address
+    if (model.routeName === 'Account' && params.address) {
+      fetchAccountData(params.address) // model partnerAccount.address || model.user.remoteNode.address
     }
   }
 }
