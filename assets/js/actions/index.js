@@ -111,6 +111,7 @@ function logOnNavigate (model, dataApi) {
 function checkAuth () {
   let extId = window.localStorage.getItem('user:extId')
   let token = window.localStorage.getItem('user:token')
+  let authLevel = window.localStorage.getItem('user:authLevel')
   // let infoMsg = 'User  "' + extId + '" is authenticated'
   let warnMsg = 'User is not authenticated: Please log in.'
   if (!token || !extId) {
@@ -159,6 +160,7 @@ function authenticateUser (mdl, api) {
         model.user.extId = extId
         model.user.token = obj.token
         model.user.authLevel = obj.auth === 'demo' ? 'readonly' : 'write'
+        localStore.setItem('user:authLevel', model.user.authLevel)
 
         dataApi.furyNode = dataApi.createFuryNode(extId)
         console.info('Success: localNode with extId "' + extId + '" created.')

@@ -6,12 +6,14 @@ import vwHome from './vwHome'
 import vwLogin from './vwLogin'
 import vwItem from './vwItem'
 import vwData from './components/vwData'
+import vwHeader from './vwHeader'
+import vwAccount from './vwAccount'
 
 export default createView
 
 function createView () {
   function vwApp (model, actions) {
-    return m('main.app', vwNav(model), vwPage(model, actions))
+    return m('main.app', vwHeader(model, actions), vwPage(model, actions))
   }
 
   function vwNav (model) {
@@ -46,7 +48,7 @@ function createView () {
     return [
       model.page === 'Login'
         ? vwLogin(model, actions)
-        : model.page === 'Account' ? vwItem(model) : vwHome(),
+        : model.page === 'Account' ? vwAccount(model) : vwHome(),
       vwData(model)
     ]
   }
