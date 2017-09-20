@@ -27,12 +27,15 @@ function vwHeader (mdl, actns) {
       [
         m('nav', { class: 'db dtc-ns v-mid w-100 tl tr-ns mt2 mt0-ns' }, [
           m(
-            'a',
-            {
-              class: 'grow f6 fw6 link v-top black-70 mr2 mr3-m mr4-l dib',
-              href: '/'
-            },
-            'Home'
+            'div',
+            { class: 'v-top dib mt0 grow vtop  pointer', href: '/' },
+            m(
+              'a',
+              {
+                class: 'grow f6 fw6 link v-top black-70 mr2 mr3-m mr4-l dib'
+              },
+              'Home'
+            )
           ),
           model.user.extId && model.user.token
             ? [
@@ -58,13 +61,19 @@ function vwHeader (mdl, actns) {
             ]
             : [
               m(
-                  'a',
+                  'div',
                 {
-                  class:
-                      'f6 fw6 hover-blue link black-70 mr2 mr3-m mr4-l dib',
+                  class: 'v-top dib mt0 grow vtop  pointer',
                   href: '#!/login'
                 },
-                  'Login'
+                  m(
+                    'a',
+                    {
+                      class:
+                        'grow f6 fw6 link v-top black-70 mr2 mr3-m mr4-l dib'
+                    },
+                    'Login'
+                  )
                 )
             ]
         ])
