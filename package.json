@@ -39,8 +39,7 @@
     "spike-optimize": "^0.1.2",
     "spike-page-id": "^1.0.0",
     "stromdao-businessobject": "^0.4.59",
-    "suitcss-base": "^3.0.0",
-    "suitcss-utils": "^3.0.0"
+    "tachyons": "^4.8.1"
   },
   "devDependencies": {
     "ava": "^0.22.0",

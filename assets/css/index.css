@@ -4,8 +4,7 @@
  *
  */
 
-@import "suitcss-base";
-@import "suitcss-utils";
+@import "tachyons";
 
 /** import globals */
 @import '_global.css';
