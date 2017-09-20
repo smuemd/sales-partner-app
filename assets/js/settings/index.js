@@ -8,7 +8,8 @@
 /** APIs and Resource Paths */
 const apiHost = 'https://fury.network/api' /* 1 */
 const rpcHost = 'https://fury.network/rpc' /* 1 */
-const abilocation = 'https://cdn.rawgit.com/energychain/StromDAO-BusinessObject/6dc9e073/smart_contracts/' /* 2 */
+const abilocation =
+  'https://cdn.rawgit.com/energychain/StromDAO-BusinessObject/6dc9e073/smart_contracts/' /* 2 */
 
 /** Fury Network Business Object configuration */
 function createBusinessObjectConfig (extId) {
@@ -33,7 +34,7 @@ const businessObject = document.StromDAOBO
 const routesDescription = [
   { name: 'Home', route: '/' },
   { name: 'Login', route: '/login' },
-  { name: 'Item', route: '/item/:id' }
+  { name: 'Account', route: '/account/:address' }
 ]
 
 /* hard coded ethereum addresses for testing TODO: get rid of this later */
