@@ -1,6 +1,6 @@
 # Sales partner app
 
-[![Build Status](https://travis-ci.org/smuemd/sales-partner-app.svg?branch=master)](https://travis-ci.org/smuemd/sales-partner-app) [![Coverage Status](https://coveralls.io/repos/github/smuemd/sales-partner-app/badge.svg?branch=master)](https://coveralls.io/github/smuemd/sales-partner-app?branch=master)
+[![Build Status](https://travis-ci.org/smuemd/sales-partner-app.svg?branch=master)](https://travis-ci.org/smuemd/sales-partner-app) [![Coverage Status](https://coveralls.io/repos/github/smuemd/sales-partner-app/badge.svg?branch=master)](https://coveralls.io/github/smuemd/sales-partner-app?branch=master) [![dependencies Status](https://david-dm.org/smuemd/sales-partner-app/status.svg)](https://david-dm.org/smuemd/sales-partner-app)
 
 A web application to manage sales commissions with the Fury network. WIP
 
