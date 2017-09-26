@@ -1,5 +1,6 @@
 'use strict'
 import m from 'mithril'
+import { getEuro } from '../helpers/helperFunctions'
 
 export default createActions
 
@@ -93,7 +94,7 @@ function setValue (value) {
 
 function valueToEuro () {
   return {
-    value: this.value / 10000000000000,
+    value: getEuro(this.value),
     unit: 'Euro'
   }
 }
@@ -156,7 +157,10 @@ function authenticateUser (mdl, api) {
         // console.log('authdata', obj)
         localStore.setItem('user:extId', extId)
         localStore.setItem('user:token', obj.token)
-        localStore.setItem('user:authLevel', obj.auth === 'demo' ? 'readonly' : 'write')
+        localStore.setItem(
+          'user:authLevel',
+          obj.auth === 'demo' ? 'readonly' : 'write'
+        )
         model.user.extId = extId
         model.user.token = obj.token
         model.user.authLevel = obj.auth === 'demo' ? 'readonly' : 'write'

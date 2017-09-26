@@ -28,53 +28,49 @@ function vwHeader (mdl, actns) {
       // nav
       [
         m('nav', { class: 'db dtc-ns v-mid w-100 tl tr-ns mt2 mt0-ns' }, [
-          m(
-            'div',
-            { class: 'v-top dib mt0 grow vtop  pointer', href: '/' },
-            m(
-              'a',
-              {
-                class: 'grow f6 fw6 link v-top black-70 mr2 mr3-m mr4-l dib'
-              },
-              'Home'
-            )
-          ),
           model.user.extId && model.user.token
             ? [
-              // show extid
+                // show extid
               m('div', { class: 'dib mr4 mt0' }, [
                 m('span', { class: 'f6 db' }, 'Logged in as:'),
                 m('span', { class: 'f6 db b' }, model.user.extId)
               ]),
-              // show authLevel
+                // show authLevel
               m('div', { class: 'dib mr4 mt0' }, [
                 m('span', { class: 'f6 db' }, 'Auth Level:'),
                 m('span', { class: 'f6 db b' }, model.user.authLevel)
               ]),
-              // show logout
+                // show logout
               m(
-                'div',
-                { class: 'v-top dib mt0 grow vtop', onclick: actions.logout },
-                m(
-                  'a',
-                  {
-                    class: 'f6 fw6 link black-70 mr2 mr3-m mr4-l dib pointer'
-                  },
-                  'Logout'
+                  'div',
+                  { class: 'v-top dib mt0 grow vtop', onclick: actions.logout },
+                  m(
+                    'a',
+                    {
+                      class: 'f6 fw6 link black-70 mr2 mr3-m mr4-l dib pointer'
+                    },
+                    'Logout'
+                  )
                 )
-              )
             ]
-            // or show login if no extid
-            : [ m(
-                'div',
-                { class: 'v-top dib mt0 grow vtop  pointer', href: '#!/login' },
-                m(
-                  'a',
-                  { class: 'grow f6 fw6 link v-top black-70 mr2 mr3-m mr4-l dib' },
-                  'Login'
+            : // or show login if no extid
+          [
+            m(
+                  'div',
+              {
+                class: 'v-top dib mt0 grow vtop  pointer',
+                href: '#!/login'
+              },
+                  m(
+                    'a',
+                    {
+                      class:
+                        'grow f6 fw6 link v-top black-70 mr2 mr3-m mr4-l dib'
+                    },
+                    'Login'
+                  )
                 )
-              )
-            ]
+          ]
         ])
       ]
     )

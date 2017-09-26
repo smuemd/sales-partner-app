@@ -21,9 +21,7 @@ function vwAccount (mdl) {
             'dd',
             { class: 'db f2 pl0 ml0 f4 b' },
             // TODO: should correspond with :address param ins route /account/:address
-            model.user && model.user.remoteNode
-              ? model.user.remoteNode.address
-              : 'Loading...'
+            model.params.address
           )
         ])
       ),
@@ -79,7 +77,7 @@ function vwAccount (mdl) {
     model.partnerAccount &&
     model.partnerAccount.transactions &&
     model.partnerAccount.transactions.length
-      ? vwTrsanctions()
-      : vwTrsanctions()
+      ? vwTrsanctions(model)
+      : ''
   ]
 }
