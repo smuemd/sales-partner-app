@@ -18,7 +18,7 @@ let authLevel = localStore.getItem('user:authLevel') || undefined
 export default function createModel (settings) {
   return {
     page: undefined,
-    routesDesc: settings.routesDesc /* 1 */,
+    routesDesc: settings.routesDesc,
     routeName: settings.routesDesc[0].name,
     routeRedirect: false,
     params: {},
