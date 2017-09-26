@@ -73,7 +73,7 @@ function fetchAccountData (accountAddress) {
         haben: setValue(a[1]),
         soll: setValue(a[2]),
         saldo: setValue(a[3]),
-        transactions: a[0],
+        transactions: a[0].reverse(),
         status: { message: 'loaded', timestamp: Date.now() }
       })
       m.redraw()
