@@ -2,6 +2,7 @@
 
 import m from 'mithril'
 import { vwPageLoader } from '../vwHelper'
+
 export default vwLogin
 
 let model
