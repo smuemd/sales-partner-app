@@ -4,12 +4,12 @@ import m from 'mithril'
 
 export default vwTrsanctions
 
-let model
+ // let model /* not using model for now */
 
 function vwTrsanctions (mdl) {
-  model = mdl
+  // model = mdl /* not using model for now */
 
-  // dummy transactions
+  /* dummy transactions */
   let transactions = [
     {
       block: '110398',

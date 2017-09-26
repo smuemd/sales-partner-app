@@ -20,6 +20,7 @@ function vwAccount (mdl) {
           m(
             'dd',
             { class: 'db f2 pl0 ml0 f4 b' },
+            // TODO: should correspond with :address param ins route /account/:address
             model.user && model.user.remoteNode
               ? model.user.remoteNode.address
               : 'Loading...'
@@ -33,7 +34,7 @@ function vwAccount (mdl) {
             'dd',
             { class: 'db f2 pl0 ml0 f4 b' },
             model.partnerAccount && model.partnerAccount.haben
-              ? '€ ' + model.partnerAccount.haben.value
+              ? '€ ' + model.partnerAccount.haben.toEuro().value
               : vwInlineLoader()
           )
         ]),
@@ -43,7 +44,7 @@ function vwAccount (mdl) {
             'dd',
             { class: 'db f2 pl0 ml0 f4 b' },
             model.partnerAccount && model.partnerAccount.soll
-              ? '€ ' + model.partnerAccount.soll.value
+              ? '€ ' + model.partnerAccount.soll.toEuro().value
               : vwInlineLoader()
           )
         ]),
@@ -53,7 +54,7 @@ function vwAccount (mdl) {
             'dd',
             { class: 'db f2 pl0 ml0 f4 b' },
             model.partnerAccount && model.partnerAccount.saldo
-              ? '€ ' + model.partnerAccount.saldo.value
+              ? '€ ' + model.partnerAccount.saldo.toEuro().value
               : vwInlineLoader()
           )
         ]),
@@ -74,6 +75,7 @@ function vwAccount (mdl) {
         )
       ])
     ]),
+    // TODO: refactor when using no dummy data
     model.partnerAccount &&
     model.partnerAccount.transactions &&
     model.partnerAccount.transactions.length
