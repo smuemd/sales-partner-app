@@ -1,5 +1,6 @@
 'use strict'
 import m from 'mithril'
+import { getEuro } from '../helpers/helperFunctions'
 
 export default createActions
 
@@ -61,7 +62,7 @@ function fetchAccountData (accountAddress) {
     throw Error('Sales node or ledger or account is undefined')
   }
   Promise.all([
-    dataApi.fetchAccountTxHistory(node, ledger, account, 7504),
+    dataApi.fetchAccountTxHistory(node, ledger, account, 60000),
     dataApi.fetchAccountHaben(node, ledger, account),
     dataApi.fetchAccountSoll(node, ledger, account)
   ])
@@ -72,7 +73,7 @@ function fetchAccountData (accountAddress) {
         haben: setValue(a[1]),
         soll: setValue(a[2]),
         saldo: setValue(a[3]),
-        transactions: a[0],
+        transactions: a[0].reverse(),
         status: { message: 'loaded', timestamp: Date.now() }
       })
       m.redraw()
@@ -93,7 +94,7 @@ function setValue (value) {
 
 function valueToEuro () {
   return {
-    value: this.value / 10000000000000,
+    value: getEuro(this.value),
     unit: 'Euro'
   }
 }
@@ -156,6 +157,10 @@ function authenticateUser (mdl, api) {
         // console.log('authdata', obj)
         localStore.setItem('user:extId', extId)
         localStore.setItem('user:token', obj.token)
+        localStore.setItem(
+          'user:authLevel',
+          obj.auth === 'demo' ? 'readonly' : 'write'
+        )
         model.user.extId = extId
         model.user.token = obj.token
         model.user.authLevel = obj.auth === 'demo' ? 'readonly' : 'write'
