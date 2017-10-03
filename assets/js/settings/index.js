@@ -34,7 +34,8 @@ const businessObject = document.StromDAOBO
 const routesDescription = [
   { name: 'Home', route: '/' },
   { name: 'Login', route: '/login' },
-  { name: 'Account', route: '/account/:address' }
+  { name: 'Account', route: '/account/:address' },
+  { name: 'Invoice', route: '/account/:address/submit' }
 ]
 
 /* hard coded ethereum addresses for testing TODO: get rid of this later */
