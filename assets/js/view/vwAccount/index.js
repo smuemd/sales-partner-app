@@ -10,7 +10,6 @@ let model
 
 function vwAccount (mdl) {
   model = mdl
-
   return [
     m('div.pa5.mt10', [
       m(
@@ -62,8 +61,11 @@ function vwAccount (mdl) {
             'dl',
             { class: 'dib mr4 mt0' },
             m(
-              'button',
+              'a',
               {
+                href: `/account/${model.params.address}/submit`,
+                oncreate: m.route.link,
+                onupdate: m.route.link,
                 class:
                   'f6 link dim br3 ba ph3 pv2 mb2 dib black bg-transparent pointer'
               },
