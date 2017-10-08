@@ -33,7 +33,7 @@ function onNavigateTo (model) {
 
     // TODO: item = account / id = address / make address dynamic
     if (model.routeName === 'Home' && model.user.remoteNode.address) {
-      m.route.set('/account/' + model.user.remoteNode.address)
+      m.route.set('/account/' + model.user.remoteNode.address + '/total')
       return
     }
 
@@ -42,7 +42,11 @@ function onNavigateTo (model) {
       redirectToLogin()
       return
     }
-    if (model.routeName === 'Account' && params.address) {
+    if (
+      // Added admin route temporarily to get populate admin page with some data
+      (model.routeName === 'Account' || model.routeName === 'Admin') &&
+      params.address
+    ) {
       fetchAccountData(params.address) // model partnerAccount.address || model.user.remoteNode.address
     }
   }

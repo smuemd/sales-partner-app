@@ -8,20 +8,21 @@ function vwInvoice (mdl) {
   return [
     m('div.mt2', [
       m(
-        'div.mt6',
+        'div.mt5',
         m(
           'dl',
           { class: 'dib mr2' },
-          m('dt', { class: 'f5 b black-70' }, 'Neue Provisionsabrechnung')
+          m('dt', { class: 'f5 b--black-10 ' }, 'Neue Provisionsabrechnung')
         )
       ),
-      m('div.mt2', [
+      m(
+        'div.mt2',
         m(
           'dl',
           { class: 'dib mr2' },
-          m('dt', { class: 'f6 b black-70' }, 'Rechnungsemfaenger')
+          m('dt', { class: 'f7 b gray' }, 'Rechnungsemfaenger')
         )
-      ]),
+      ),
       m('form', [
         m('div', { class: 'w-33' }, [
           m('dl', [
@@ -40,7 +41,7 @@ function vwInvoice (mdl) {
         m(
           'div',
           m('dl', { class: 'dib mr4 mt2' }, [
-            m('dt', { class: 'f6 b black-70' }, 'Abrechnungszetraum')
+            m('dt', { class: 'f7 b gray' }, 'Abrechnungszetraum')
           ])
         ),
         m('div.cf', [
@@ -65,11 +66,7 @@ function vwInvoice (mdl) {
           m(
             'dl',
             { class: 'dib mr4' },
-            m(
-              'dt',
-              { class: 'f6 b black-70' },
-              'Errechneter Provisionsanspruch'
-            )
+            m('dt', { class: 'f7 b gray' }, 'Errechneter Provisionsanspruch')
           )
         ]),
         m('div.cf', [
@@ -129,7 +126,7 @@ function vwInvoice (mdl) {
         m(
           'div',
           m('dl', { class: 'dib mr4 mt2' }, [
-            m('dt', { class: 'f6 b black-70' }, 'Originalbeleg hinzufuegen')
+            m('dt', { class: 'f7 b gray' }, 'Originalbeleg hinzufuegen')
           ])
         ),
         m('div.cf', [
@@ -159,7 +156,7 @@ function vwInvoice (mdl) {
         m(
           'div',
           m('dl', { class: 'dib mr4 mt2 black-70' }, [
-            m('dt', { class: 'f6 b black-70' }, 'Rechnungbetrag pruefen')
+            m('dt', { class: 'f7 b gray' }, 'Rechnungbetrag pruefen')
           ])
         ),
         m('div.cf', [

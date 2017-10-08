@@ -1,6 +1,7 @@
 'use strict'
 
 import m from 'mithril'
+import { adminUser } from '../../helpers/helperFunctions'
 
 export default vwHeader
 
@@ -16,15 +17,14 @@ function vwHeader (mdl, actns) {
     m(
       'div',
       { class: 'db dt-ns mw9 center w-100' },
-      m(
-        'div',
-        { class: 'db dtc-ns v-mid tl w-50' },
+      m('div', { class: 'db dtc-ns v-mid tl w-50' }, [
         m(
           'a',
           { class: 'dib f5 f4-ns fw6 mt0 mb1 link black-70' },
-          'Sales PartnerApp'
-        )
-      ),
+          'Sev Partner'
+        ),
+        m('span', { class: 'ml3 f5 ' }, adminUser() ? 'Admin' : 'Account')
+      ]),
       // nav
       [
         m('nav', { class: 'db dtc-ns v-mid w-100 tl tr-ns mt2 mt0-ns' }, [
@@ -32,13 +32,13 @@ function vwHeader (mdl, actns) {
             ? [
                 // show extid
               m('div', { class: 'dib mr4 mt0' }, [
-                m('span', { class: 'f6 db' }, 'Logged in as:'),
-                m('span', { class: 'f6 db b' }, model.user.extId)
+                m('span', { class: 'f6 db' }, 'Abrechnungsjahr'),
+                m('span', { class: 'f6 db b' }, new Date().getFullYear())
               ]),
                 // show authLevel
               m('div', { class: 'dib mr4 mt0' }, [
-                m('span', { class: 'f6 db' }, 'Auth Level:'),
-                m('span', { class: 'f6 db b' }, model.user.authLevel)
+                m('span', { class: 'f6 db' }, 'Angemeldet als'),
+                m('span', { class: 'f6 db b' }, model.user.extId)
               ]),
                 // show logout
               m(
