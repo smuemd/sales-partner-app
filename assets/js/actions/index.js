@@ -54,9 +54,9 @@ function onNavigateTo (model) {
 
 function fetchAccountData (accountAddress) {
   let node = dataApi.furyNode
-  let ledger = '0x19BF166624F485f191d82900a5B7bc22Be569895' // TODO derive form settings
+  let ledger = '0x691C0173bbAF9B8e8293D6d6b145bbb775B1A84e' // TODO derive form settings
   let account =
-    '0xEAA8789b2f942d66A880731ffFD24f56E87Cf809' ||
+    '0x19c541b0832543faed2c42ec8d6b96d9287dc33f' ||
     accountAddress ||
     window.localStorage.getItem(
       'user[' + model.user.extId + ']:remoteNode:address'
