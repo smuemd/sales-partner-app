@@ -33,7 +33,7 @@ function onNavigateTo (model) {
 
     // TODO: item = account / id = address / make address dynamic
     if (model.routeName === 'Home' && model.user.remoteNode.address) {
-      m.route.set('/account/' + model.user.remoteNode.address)
+      m.route.set('/account/' + model.user.remoteNode.address + '/total')
       return
     }
 
@@ -42,7 +42,11 @@ function onNavigateTo (model) {
       redirectToLogin()
       return
     }
-    if (model.routeName === 'Account' && params.address) {
+    if (
+      // Added admin route temporarily to get populate admin page with some data
+      (model.routeName === 'Account' || model.routeName === 'Admin') &&
+      params.address
+    ) {
       fetchAccountData(params.address) // model partnerAccount.address || model.user.remoteNode.address
     }
   }
@@ -50,8 +54,9 @@ function onNavigateTo (model) {
 
 function fetchAccountData (accountAddress) {
   let node = dataApi.furyNode
-  let ledger = '0x19BF166624F485f191d82900a5B7bc22Be569895' // TODO derive form settings
+  let ledger = '0x691C0173bbAF9B8e8293D6d6b145bbb775B1A84e' // TODO derive form settings
   let account =
+    '0x19c541b0832543faed2c42ec8d6b96d9287dc33f' ||
     accountAddress ||
     window.localStorage.getItem(
       'user[' + model.user.extId + ']:remoteNode:address'

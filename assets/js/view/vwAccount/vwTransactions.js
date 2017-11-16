@@ -11,9 +11,17 @@ export default vwTrsanctions
 function vwTrsanctions (mdl) {
   let model = mdl
   const transactions = model.partnerAccount.transactions.slice(-50)
-
   return m('div.mt5', [
     m('div.overflow-auto', [
+      m(
+        'div.mt2',
+        m(
+          'dl',
+          { class: 'dib mr2' },
+          m('dt', { class: 'f7 b gray' }, 'Rechnungsemfaenger')
+        )
+      ),
+
       m('table.f6.w-100.center', { cellspacing: '0' }, [
         m('tbody.lh-copy', [
           m('th.bt.b--black-20'),
@@ -26,7 +34,7 @@ function vwTrsanctions (mdl) {
               m(
                 'td.pv3.pr3.bb.b--black-20',
                 m('dl', { class: 'dib mr4 mt0' }, [
-                  m('dt', { class: 'f6 db dim moon-gray' }, 'Block'),
+                  m('dt', { class: 'f6 db dim moon-gray' }, 'Blocknr.'),
                   m(
                     'dd',
                     { class: 'db f2 pl0 ml0 f6' },
@@ -37,10 +45,10 @@ function vwTrsanctions (mdl) {
               m(
                 'td.pv3.pr3.bb.b--black-20',
                 m('dl', { class: 'dib mr4 mt0' }, [
-                  m('dt', { class: 'f6 db dim moon-gray' }, 'Von'),
+                  m('dt', { class: 'f6 db dim moon-gray' }, 'Von admin:calc'),
                   m(
-                    'dd',
-                    { class: 'db f2 pl0 ml0 f6' },
+                    'a',
+                    { class: 'db f2 pl0 ml0 f6 blue', href: '/' },
                     getFormattedAddress(transaction.from)
                   )
                 ])
@@ -48,7 +56,11 @@ function vwTrsanctions (mdl) {
               m(
                 'td.pv3.pr3.bb.b--black-20',
                 m('dl', { class: 'dib mr4 mt0' }, [
-                  m('dt', { class: 'f6 db dim moon-gray' }, 'An'),
+                  m(
+                    'dt',
+                    { class: 'f6 db dim moon-gray' },
+                    'An partner:entitlement'
+                  ),
                   m(
                     'dd',
                     { class: 'db f2 pl0 ml0 f6' },

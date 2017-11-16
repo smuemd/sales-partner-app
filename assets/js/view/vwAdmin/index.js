@@ -1,16 +1,17 @@
 'use strict'
 
 import m from 'mithril'
-import vwTrsanctions from './vwTransactions'
-import vwCommisionableBillings from './vwCommisionableBillings'
+import vwReceivedInvoices from './vwReceivedInvoices'
+import vwApprovedInvoices from './vwApprovedInvoices'
+import vwOpenCommisionStatements from './vwOpenCommisionStatements'
 import { vwInlineLoader } from '../vwHelper'
 import { currentPage } from '../../helpers/helperFunctions'
 
-export default vwAccount
+export default vwAdmin
 
 let model
 
-function vwAccount (mdl) {
+function vwAdmin (mdl) {
   model = mdl
   return [
     m('div.mt6', [
@@ -19,20 +20,20 @@ function vwAccount (mdl) {
           'a',
           {
             class:
-              'no-underline dib pr2  pl2 ml2 mt0 mr2 black ' +
-              (currentPage('total') ? 'br bl b--black-10 ' : 'silver pointer'),
-            href: `/account/${model.params.address}/total`,
+              'no-underline dib pr2 pl2 ml2 mt0 mr2 black ' +
+              (currentPage('in') ? 'br bl b--black-10 ' : 'silver pointer'),
+            href: `/admin/${model.params.address}/in`,
             oncreate: m.route.link,
             onupdate: m.route.link
           },
           [
-            m('dt', { class: 'f6 mr5 db' }, 'Provisionsanspruch'),
+            m('dt', { class: 'f6 mr5 db' }, 'Rechnungseingang'),
             m(
               'dd',
               {
                 class:
                   'db pl0 ml0 mt3' +
-                  (currentPage('total') ? ' bb pb2 bw2 b--blue' : '')
+                  (currentPage('in') ? ' bb pb2 bw2 b--blue' : '')
               },
               model.partnerAccount && model.partnerAccount.haben
                 ? '€ ' + model.partnerAccount.haben.toEuro().value
@@ -44,22 +45,20 @@ function vwAccount (mdl) {
           'a',
           {
             class:
-              'no-underline dib pr2 pl2 ml2  mt0 mr2 black ' +
-              (currentPage('submitted')
-                ? 'br bl b--black-10 '
-                : 'silver pointer'),
-            href: `/account/${model.params.address}/submitted`,
+              'no-underline dib pr2 pl2 ml2 mt0 mr2 black ' +
+              (currentPage('out') ? 'br bl b--black-10 ' : 'silver pointer'),
+            href: `/admin/${model.params.address}/out`,
             oncreate: m.route.link,
             onupdate: m.route.link
           },
           [
-            m('dt', { class: 'f6 mr5 db' }, 'Bereits abgerechnet'),
+            m('dt', { class: 'f6 mr5 db' }, 'Freigegebene Rechnungen'),
             m(
               'dd',
               {
                 class:
                   'db pl0 ml0 mt3' +
-                  (currentPage('submitted') ? ' bb pb2 bw2 b--blue' : '')
+                  (currentPage('out') ? ' bb pb2 bw2 b--blue' : '')
               },
               model.partnerAccount && model.partnerAccount.soll
                 ? '€ ' + model.partnerAccount.soll.toEuro().value
@@ -73,12 +72,12 @@ function vwAccount (mdl) {
             class:
               'no-underline dib pr2 pl2 ml2 mt0 ml2 black ' +
               (currentPage('open') ? 'bl br b--black-10 ' : 'silver pointer'),
-            href: `/account/${model.params.address}/open`,
+            href: `/admin/${model.params.address}/open`,
             oncreate: m.route.link,
             onupdate: m.route.link
           },
           [
-            m('dt', { class: 'f6  mr5db' }, 'Nicht abgerechnet'),
+            m('dt', { class: 'f6  mr5db' }, 'Offene Rechnungen'),
             m(
               'dd',
               {
@@ -91,39 +90,19 @@ function vwAccount (mdl) {
                 : vwInlineLoader()
             )
           ]
-        ),
-        m(
-          'div.mt2.fr',
-          m(
-            'dl',
-            { class: 'dib mr4 mt4 grow' },
-            m(
-              'a',
-              {
-                href: currentPage('submitted')
-                  ? `/account/${model.params.address}/submit`
-                  : '/',
-                oncreate: m.route.link,
-                onupdate: m.route.link,
-                class: currentPage('submitted')
-                  ? 'f6 link dim br2 ba ph3 pv2 mb2 dib blue bg-transparent pointer no-underline'
-                  : 'mt6 f6 ba b--black-20 bg-blue white mr5 pa2 br2 no-underline'
-              },
-              currentPage('submitted')
-                ? 'NEUER ORIGINALBELEG'
-                : 'Abrechnung starten'
-            )
-          )
         )
       ])
     ]),
-    // TODO: refactor when using no dummy data
+
+    // TODO: Logic Needs to be changed after geting the actions, currently hardcoded with transactions
     model.partnerAccount &&
     model.partnerAccount.transactions &&
     model.partnerAccount.transactions.length
-      ? currentPage('submitted')
-        ? vwCommisionableBillings(model)
-        : vwTrsanctions(model)
+      ? currentPage('in')
+        ? vwReceivedInvoices(model)
+        : currentPage('out')
+          ? vwApprovedInvoices(model)
+          : vwOpenCommisionStatements(model)
       : ''
   ]
 }

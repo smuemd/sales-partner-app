@@ -6,6 +6,8 @@ import vwHome from './vwHome'
 import vwLogin from './vwLogin'
 import vwHeader from './vwHeader'
 import vwAccount from './vwAccount'
+import vwInvoice from './vwInvoice'
+import vwAdmin from './vwAdmin'
 import vwData from './components/vwData'
 
 export default createView
@@ -51,7 +53,11 @@ function createView () {
       vwHeader(model, actions),
       model.page === 'Login'
         ? vwLogin(model, actions)
-        : model.page === 'Account' ? vwAccount(model) : vwHome(),
+        : model.page === 'Account'
+          ? vwAccount(model, actions)
+          : model.page === 'Invoice'
+            ? vwInvoice(model)
+            : model.page === 'Admin' ? vwAdmin(model, actions) : vwHome(),
       test ? vwData(model) : ''
     ]
   }
