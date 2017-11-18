@@ -5,37 +5,20 @@
  * Provides initial hard coded app setting
  */
 
-/** APIs and Resource Paths */
-const apiHost = 'https://fury.network/api' /* 1 */
-const rpcHost = 'https://fury.network/rpc' /* 1 */
-const abilocation =
-  'https://cdn.rawgit.com/energychain/StromDAO-BusinessObject/6dc9e073/smart_contracts/' /* 2 */
+const fury = document.StromDAOBO
 
-/** Fury Network Business Object configuration */
-function createBusinessObjectConfig (extId) {
-  let externalId = extId || '19810930'
-  console.info(externalId)
-  return {
-    external_id: externalId,
-    testMode: true,
-    rpc: rpcHost,
-    abilocation: abilocation
-  }
-}
-
-const businessObject = document.StromDAOBO
-
-/** Fury Business Object initialisation funtion */
-// function createFuryNode (businessObj, businessObjConfig) {
-//   return new businessObj.Node(businessObjConfig)
-// }
-
-/** Routes description */
+/* Routes description */
 const routesDescription = [
   { name: 'Home', route: '/' },
   { name: 'Login', route: '/login' },
   { name: 'Account', route: '/account/:address' }
 ]
+
+/* APIs and Resource Paths */
+const apiHost = undefined // https://fury.network/api'
+const rpcHost = 'https://fury.network/rpc'
+const abiLocation =
+  'https://unpkg.com/stromdao-businessobject@0.5.20/smart_contracts/'
 
 /* hard coded ethereum addresses for testing TODO: get rid of this later */
 const ethAddresses = {
@@ -44,11 +27,28 @@ const ethAddresses = {
   sk: '0x19BF166624F485f191d82900a5B7bc22Be569895' // Ledger address (stromkonto)
 }
 
-/** settings export */
+function createAccount (username, secret) {
+  return new fury.Account(username, secret)
+}
+
+/** Fury Network Business Object configuration */
+function createNode (extid, privateKey) {
+  console.info(externalId)
+  return new fury.Node({
+    external_id: extid || 'usernode',
+    privateKey: privateKey || undefined,
+    rpc: rpcHost,
+    abilocation: abiLocation,
+    testMode: true
+  })
+}
+
+/* settings export */
 export default {
   apiHost: apiHost,
-  businessObject: businessObject,
-  createBusinessObjectConfig: createBusinessObjectConfig,
+  businessObject: fury,
+  createNodeAccount: createAccount,
+  createNode: createNode,
   ethAddresses: ethAddresses,
   // routePrefix: '#',
   defaultRoute: '/',
