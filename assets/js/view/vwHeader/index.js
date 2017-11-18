@@ -64,13 +64,20 @@ function vwHeader (mdl, actns) {
                 )
               )
             ]
-            // or show login if no extid
-            : [ m(
+            : // or show login if no extid
+            [
+              m(
                 'div',
-                { class: 'v-top dib mt0 grow vtop  pointer', href: '#!/login' },
+                {
+                  class: 'v-top dib mt0 grow vtop  pointer',
+                  href: '#!/login'
+                },
                 m(
                   'a',
-                  { class: 'grow f6 fw6 link v-top black-70 mr2 mr3-m mr4-l dib' },
+                  {
+                    class:
+                        'grow f6 fw6 link v-top black-70 mr2 mr3-m mr4-l dib'
+                  },
                   'Login'
                 )
               )

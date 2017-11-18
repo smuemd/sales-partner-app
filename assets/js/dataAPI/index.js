@@ -22,13 +22,15 @@ function createDataAPI (sttngs) {
 
     // only if process environment is a browser.
     createFuryNode: createLocalNode,
-    furyNode: (extId && token) ? createLocalNode(extId) : undefined
+    furyNode: extId && token ? createLocalNode(extId) : undefined
   }
 }
 
 function createLocalNode (externalId) {
   if (!isServer) {
-    return new settings.businessObject.Node(settings.createBusinessObjectConfig(externalId))
+    return new settings.businessObject.Node(
+      settings.createBusinessObjectConfig(externalId)
+    )
   } else {
     return undefined
   }
@@ -68,10 +70,9 @@ function fetchAccountSoll (furyNode, ledgerAddress, accountAddress) {
  * @returns accountCredit (Haben)
  */
 function fetchAccountHaben (furyNode, ledgerAddress, accountAddress) {
-  return mountLedger(furyNode, ledgerAddress)
-    .then(ledger => {
-      return ledger.balancesHaben(accountAddress)
-    })
+  return mountLedger(furyNode, ledgerAddress).then(ledger => {
+    return ledger.balancesHaben(accountAddress)
+  })
 }
 
 /**
@@ -83,17 +84,23 @@ function fetchAccountHaben (furyNode, ledgerAddress, accountAddress) {
  * @param blockCount - limits the number of blocks to be queried
  * @returns {[*]} - returns an array of transactions
  */
-function fetchAccountTxHistory (furyNode, ledgerAddress, accountAddress, blockCount) {
+function fetchAccountTxHistory (
+  furyNode,
+  ledgerAddress,
+  accountAddress,
+  blockCount
+) {
   blockCount = blockCount || 1000 // specify how many blocks will be queried
-  return mountLedger(furyNode, ledgerAddress)
-    .then(ledger => {
-      return ledger.history(accountAddress, blockCount)
-    })
+  return mountLedger(furyNode, ledgerAddress).then(ledger => {
+    return ledger.history(accountAddress, blockCount)
+  })
 }
 
 /** Authentictes the user at the API host server */
 function authenticateUser (extId, secret) {
-  console.info('Authenticating User with extId "' + extId + '" and secret "' + secret + '"')
+  console.info(
+    'Authenticating User with extId "' + extId + '" and secret "' + secret + '"'
+  )
   if (!extId || !secret) {
     throw Error('submit username and password')
   }

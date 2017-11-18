@@ -4,7 +4,7 @@ import m from 'mithril'
 
 export default vwTrsanctions
 
- // let model /* not using model for now */
+// let model /* not using model for now */
 
 function vwTrsanctions (mdl) {
   // model = mdl /* not using model for now */
