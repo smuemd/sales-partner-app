@@ -3745,6 +3745,12 @@ js-base64@^2.1.9:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.3.2.tgz#a79a923666372b580f8e27f51845c6f7e8fbfbaf"
 
+js-hash@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/js-hash/-/js-hash-0.0.1.tgz#57158ddec8611741550d6e5cf187f69f6d254fa0"
+  dependencies:
+    tiock latest
+
 js-sha3@0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/js-sha3/-/js-sha3-0.5.7.tgz#0d4ffd8002d5333aabaf4a23eed2f6374c9f28e7"
@@ -4161,6 +4167,10 @@ md5.js@^1.3.4:
 mdurl@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
+
+meiosis@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/meiosis/-/meiosis-1.2.0.tgz#f35b24a4679306f03b5e4341d9788ccb1cb85021"
 
 mem@^1.1.0:
   version "1.1.0"
@@ -4863,6 +4873,10 @@ path-key@^2.0.0:
 path-parse@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
+
+path-to-regexp@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.1.0.tgz#7e30f9f5b134bd6a28ffc2e3ef1e47075ac5259b"
 
 path-type@^1.0.0:
   version "1.1.0"
@@ -7000,6 +7014,10 @@ timers-browserify@^2.0.4:
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.4.tgz#96ca53f4b794a5e7c0e1bd7cc88a372298fa01e6"
   dependencies:
     setimmediate "^1.0.4"
+
+tiock@latest:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tiock/-/tiock-1.0.1.tgz#7bcd66abaabf34402e3a84281df61255fe1054cf"
 
 tmp@^0.0.33:
   version "0.0.33"

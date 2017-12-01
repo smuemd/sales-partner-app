@@ -31,7 +31,10 @@
   "bugs": "https://github.com/energychain/sales-partner-app/issues",
   "dependencies": {
     "detect-node": "^2.0.3",
+    "js-hash": "^0.0.1",
+    "meiosis": "^1.2.0",
     "mithril": "^1.1.5",
+    "path-to-regexp": "^2.1.0",
     "reshape-standard": "^3.1.1",
     "spike": "^2.2.1",
     "spike-css-standards": "^3.0.0",
