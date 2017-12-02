@@ -1,7 +1,14 @@
 import createDataApi from '../../dataApi'
-import { onNavigateTo} from '../../actions'
+import { onNavigateTo } from '../../actions'
 
 const dataApi = createDataApi()
+const node = () => dataApi.createNode('supersoft')
+
+node().mpr().then(mpr => {
+  mpr.readings(node().wallet.address)
+    .then(res => console.log(res))
+})
+
 let update
 
 export const createActions = (updte) => {
@@ -13,32 +20,26 @@ export const createActions = (updte) => {
 }
 
 export function authenticateUser (username, password) {
-  const node = () => dataApi.createNode(username)
-  const userAccount = {
-    username: username,
-    password: password,
-    wallet: {}
-  }
+  const accountObj = dataApi.createAccount(username, password)
   update((model) => {
     model.viewState.authInProgress = true
     return model
   })
-  dataApi.createAccount(username, password).wallet()
+  accountObj.wallet()
     .then(w => {
-      Object.assign(userAccount.wallet, w)
-
+      // const node = () => dataApi.createNode(username, w.privateKey)
       update((model) => {
-        let user = model.user
-        let viewSate = model.viewState
+        const user = model.user
         user.extid = username
-        user.address = node().wallet.address
-        user.privateKey = node().wallet.privateKey
-        viewSate.authInProgress = false
+        user.account.address = w.address
+        user.account.username = accountObj.username
+        user.account.password = accountObj.password
+        user.account.obj = accountObj
+        Object.assign(user.account.wallet, w)
+        model.viewState.authInProgress = false
         return model
       })
+      console.log(w.address)
     })
-    .then(() =>
-      onNavigateTo('Account', {address: parseInt((Math.random() * 1000000000000), 10)})
-    )
     .catch(err => console.error(err))
 }

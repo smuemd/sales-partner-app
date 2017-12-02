@@ -1,4 +1,5 @@
 'use strict'
+
 import { settings } from '../settings'
 
 const fury = document.StromDAOBO
@@ -11,7 +12,9 @@ const fury = document.StromDAOBO
 const createDataApi = () => {
   return {
     createAccount: createAccount,
-    createNode: createNode
+    createNode: createNode,
+    getRelation: getRelation,
+    readRelationString: readRelationString,
   }
 }
 
@@ -21,6 +24,7 @@ export {
   createNode,
   getRelation,
   setRelation,
+  readRelationString,
   fetchMeterpointReading,
   storeMeterpointReading,
   createLedger,
@@ -28,7 +32,6 @@ export {
   fetchAccountCredit,
   fetchAccountDebit,
   addTx
-
 }
 
 /**
@@ -55,13 +58,12 @@ function createAccount (username, password) {
  */
 function createNode (extid, privateKey) {
   console.info('[dataApi]: createNode() called with -extid "', extid, '"')
-
   return new fury.Node({
     external_id: extid || 'default',
-    privateKey: privateKey,
+    privateKey: privateKey || undefined,
+    testMode: true,
     rpc: settings.rpcHost,
-    abiLocation: settings.abiLocation,
-    testMode: true
+   // abiLocation: settings.abiLocation
   })
 }
 
@@ -73,7 +75,7 @@ function createNode (extid, privateKey) {
  * @return {Promise.<string>}
  */
 function getRelation (address, key, n) {
-  n = n || createNode()
+  if (!n) { n = createNode('default') }
   return n.roleLookup()
     .then(rl => {
       return rl.relations(address, key)
@@ -110,6 +112,25 @@ function setRelation (n, key, toAddress, overwriteExisting) {
         console.warn('will not overwrite existing')
         return undefined
       }
+    })
+    .catch(err => console.error(err))
+}
+
+/**
+ *
+ * @param {string} address
+ * @param {number} key
+ * @param {object} [n] - business object node
+ * @return {Promise.<string>}
+ */
+function readRelationString (address, key, n) {
+  if (!n) n = createNode()
+  return getRelation(address, key, n)
+    .then(strgStoreAddress => {
+      return n.stringstrorage(strgStoreAddress)
+    })
+    .then(strgStore => {
+      return strgStore.str()
     })
     .catch(err => console.error(err))
 }

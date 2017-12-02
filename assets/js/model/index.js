@@ -7,6 +7,7 @@ export const createModel = function (settings) {
     params: {},
     user: {
       account: {
+        address: '',
         username: '',
         password: '',
         wallet: {
@@ -15,10 +16,11 @@ export const createModel = function (settings) {
         },
         rsaPublic: '',
         rsaPrivate: ''
-        },
+      },
       address: '',
       extid: '',
       privateKey: '',
+      node: undefined
     },
     viewState: {
       authInProgress: false
