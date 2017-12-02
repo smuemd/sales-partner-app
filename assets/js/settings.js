@@ -2,8 +2,7 @@
 
 // const apiHost = undefined // https://fury.network/api'
 const rpcHost = 'https://fury.network/rpc'
-const abiLocation =
-  'https://unpkg.com/stromdao-businessobject@latest/smart_contracts/'
+const abiLocation = 'https://unpkg.com/stromdao-businessobject@0.5.22/smart_contracts'
 
 /* hard coded ethereum addresses for testing TODO: get rid of this later */
 const ethAddresses = {
