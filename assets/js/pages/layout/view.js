@@ -1,8 +1,8 @@
 import m from 'mithril'
 
-export const createView = function (components, pages /* , getOrDefault */) {
+export const createView = function (components, pages, fallbackPage) {
   return function (model) {
-    const Page = pages[model.page] || pages.Home  // getOrDefault(layout[model.page])
+    const Page = pages[model.page] || fallbackPage // pages.Home  // getOrDefault(layout[model.page])
 
     return [
       m('div#' + model.page.toLowerCase() + '.content',

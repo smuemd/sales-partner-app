@@ -1,9 +1,5 @@
 /* APIs and Resource Paths */
 
-// const apiHost = undefined // https://fury.network/api'
-const rpcHost = 'https://fury.network/rpc'
-const abiLocation = 'https://unpkg.com/stromdao-businessobject@0.5.22/smart_contracts'
-
 /* hard coded ethereum addresses for testing TODO: get rid of this later */
 const ethAddresses = {
   mp: '0x83F8B15eb816284ddcF2ff005Db7a19196d86ae1', // Meter point address
@@ -20,9 +16,11 @@ const routesDescription = [
   { name: 'Account', route: '/account/:address' }
 ]
 
+/* Export settings */
+
 export const settings = {
-  rpcHost: rpcHost,
-  abiLocation: abiLocation,
+  rpcHost: 'https://fury.network/rpc',
+  abiLocation: 'https://unpkg.com/stromdao-businessobject@0.5.22/smart_contracts/',
   ethAddresses: ethAddresses,
   routePrefix: '#!',
   defaultRoute: '/',

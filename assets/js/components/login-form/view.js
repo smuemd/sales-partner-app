@@ -1,7 +1,7 @@
 import m from 'mithril'
 
 export const createView = (actions) => (model) => {
-  return m('div', (model.viewState.authInProgress === false)
+  return m('div', (model.vm.authInProgress === false)
     ? [
       m('form',
         {
@@ -28,5 +28,5 @@ export const createView = (actions) => (model) => {
         m('button[type=submit]', 'Submit')
       )
     ]
-  : m('div', 'loading account'))
+    : m('div', 'loading account'))
 }

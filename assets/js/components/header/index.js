@@ -1,17 +1,13 @@
-'use strict'
-
-import { nav } from '../nav/index'
-import { createView } from './view.js'
+import { nav } from '../nav'
+import { createView } from './view'
 
 export const header = {
+
   create: (update) => {
-    let components = {
-      nav: nav.create(update)
+    const components = {
+      Nav: nav.create(update)
     }
+
     return createView(components)
   }
 }
-
-// function createView (update) {
-//   return createView(createActions(update))
-// }

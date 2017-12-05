@@ -1,4 +1,4 @@
-export const createModel = function (settings) {
+export const createModel = (settings) => {
   return {
     redirect: false,
     routesDesc: settings.routesDesc,
@@ -6,23 +6,24 @@ export const createModel = function (settings) {
     query: '',
     params: {},
     user: {
+      extid: '',
+      address: '',
       account: {
-        address: '',
         username: '',
         password: '',
+        decrypt: undefined,
+        encrypt: undefined,
         wallet: {
           address: '',
-          privateKey: ''
+          privateKey: '',
+          sign: undefined
         },
-        rsaPublic: '',
-        rsaPrivate: ''
+        rsaPrivate: '',
+        rsaPublic: ''
       },
-      address: '',
-      extid: '',
-      privateKey: '',
       node: undefined
     },
-    viewState: {
+    vm: {
       authInProgress: false
     }
   }

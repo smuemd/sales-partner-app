@@ -1,36 +1,19 @@
-'use strict'
-
 import { settings } from '../settings'
-
 const fury = document.StromDAOBO
 
-/**
- *
- * @param {Object} settngs contains global app settings
- * @return {Object} with methods for managing external data
- */
-const createDataApi = () => {
-  return {
-    createAccount: createAccount,
-    createNode: createNode,
-    getRelation: getRelation,
-    readRelationString: readRelationString,
-  }
-}
-
 export {
-  createDataApi as default,
   createAccount,
   createNode,
   getRelation,
   setRelation,
   readRelationString,
+  writeRelationString,
   fetchMeterpointReading,
   storeMeterpointReading,
   createLedger,
   addSenderToLedger,
-  fetchAccountCredit,
   fetchAccountDebit,
+  fetchAccountCredit,
   addTx
 }
 
@@ -42,7 +25,7 @@ export {
  */
 function createAccount (username, password) {
   console.info(
-    '[dataApi]: createAccount() called with -u ',
+    '[furyRPC]: createAccount() called with -u ',
     username,
     ' and -p ',
     password)
@@ -52,18 +35,19 @@ function createAccount (username, password) {
 
 /**
  *
- * @param {string} [extid='default']
- * @param {string} [privateKey=undefined]
+ * @param {object} param
+ * @param {string} [param.extid='default']
+ * @param {string} [param.privateKey=undefined]
  * @return {Object} an initialized Fury node
  */
-function createNode (extid, privateKey) {
-  console.info('[dataApi]: createNode() called with -extid "', extid, '"')
+function createNode ({ extid = 'default', privateKey } = {}) {
+  console.info('[furyRPC]: createNode() called with -extid', extid)
   return new fury.Node({
-    external_id: extid || 'default',
-    privateKey: privateKey || undefined,
+    external_id: extid,
+    privateKey: privateKey,
     testMode: true,
     rpc: settings.rpcHost,
-   // abiLocation: settings.abiLocation
+    abilocation: settings.abiLocation
   })
 }
 
@@ -124,10 +108,10 @@ function setRelation (n, key, toAddress, overwriteExisting) {
  * @return {Promise.<string>}
  */
 function readRelationString (address, key, n) {
-  if (!n) n = createNode()
+  n = n || createNode()
   return getRelation(address, key, n)
     .then(strgStoreAddress => {
-      return n.stringstrorage(strgStoreAddress)
+      return n.stringstorage(strgStoreAddress)
     })
     .then(strgStore => {
       return strgStore.str()
@@ -137,9 +121,24 @@ function readRelationString (address, key, n) {
 
 /**
  *
+ * @param n {object} n - business object node
+ * @param {number} key - role look-up register number of string-storage contract address
+ * @param {string} string - string to store and reference
+ * @return {Promise.<TResult>|Promise.<*>|*|{get}}
+ */
+function writeRelationString (n, key, string) {
+  return n.stringstoragefactory()
+    .then(ssf => {
+      console.log('stringStore relation at role', key, 'string: ', string)
+      return ssf.buildAndAssign(key, string)
+    })
+}
+
+/**
+ *
  * @param {string} address - ethereum address of meterpoint
  * @param {object} [n] - business object node
- * @return {Promise.<number>}
+ * @return {Promise.<number>} - current reading
  */
 function fetchMeterpointReading (address, n) {
   if (!n) n = createNode()

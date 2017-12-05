@@ -1,9 +1,8 @@
-// import { articles } from '../articles'
-// import { popularTags } from '../popularTags'
-import { extLink } from '../../components/externalLink/index'
+import { extLink } from '../../components/externalLink'
 import { createView } from './view'
 
-export const home = {
+export const account = {
+
   create: (update) => {
     const components = {
       ExternalLink: extLink.create(update)

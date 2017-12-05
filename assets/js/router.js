@@ -2,9 +2,16 @@ import m from 'mithril'
 import pathToRegexp from 'path-to-regexp'
 
 import { settings } from './settings'
-import createActions from './actions'
+import { createActions } from './actions'
 
-export const createRouter = function (update) {
+export { createRouter }
+
+/**
+ *
+ * @param {object<stream>} update - model stream
+ * @return {{routeSync: Function}}
+ */
+function createRouter (update) {
   const actions = createActions(update)
   const routeResolver = createRouteResolver(settings, actions)
   const routeSync = createRouteSync(settings)

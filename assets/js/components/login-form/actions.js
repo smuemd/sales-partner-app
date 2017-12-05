@@ -1,45 +1,143 @@
-import createDataApi from '../../dataApi'
-import { onNavigateTo } from '../../actions'
-
-const dataApi = createDataApi()
-const node = () => dataApi.createNode('supersoft')
-
-node().mpr().then(mpr => {
-  mpr.readings(node().wallet.address)
-    .then(res => console.log(res))
-})
+import * as furyRPC from '../../furyRPC'
 
 let update
+
+const furyUser = {
+  extid: '',
+  address: '',
+  account: {
+    username: '',
+    password: '',
+    decrypt: undefined,
+    encrypt: undefined,
+    wallet: undefined,
+    rsaPrivate: '',
+    rsaPublic: ''
+  },
+  node: undefined
+}
 
 export const createActions = (updte) => {
   update = updte
   return {
-    authenticateUser: authenticateUser,
-    onNavigateTo: onNavigateTo
+    authenticateUser: authUser
   }
 }
 
-export function authenticateUser (username, password) {
-  const accountObj = dataApi.createAccount(username, password)
+function authUser (username, secret) {
+  let authNode
+  let accountObj
+  accountObj = furyRPC.createAccount(username, secret)
   update((model) => {
-    model.viewState.authInProgress = true
+    model.vm.authInProgress = true
     return model
   })
+  let start = Date.now()
   accountObj.wallet()
-    .then(w => {
-      // const node = () => dataApi.createNode(username, w.privateKey)
-      update((model) => {
-        const user = model.user
-        user.extid = username
-        user.account.address = w.address
-        user.account.username = accountObj.username
-        user.account.password = accountObj.password
-        user.account.obj = accountObj
-        Object.assign(user.account.wallet, w)
-        model.viewState.authInProgress = false
+    .then(wallet => {
+      let mid = Date.now()
+      let midduration = (mid - start) / 1000
+      console.log('login mid-duration: ', midduration, ' sec')
+      console.log('wallet:  ', wallet)
+      authNode = () => furyRPC.createNode({
+        extid: 'authNode',
+        privateKey: wallet.privateKey
+      })
+      accountObj.wallet = wallet
+      furyUser.extid = username
+      Object.assign(furyUser.account, accountObj)
+      update(model => {
+        Object.assign(model.user, furyUser)
+        model.page = 'Account'
+        Object.assign(model.params, { address: furyUser.account.wallet.address })
         return model
       })
-      console.log(w.address)
+      return fetchUserPrivateKey(accountObj, authNode())
+    })
+    .then(privateKey => {
+      furyUser.node = () => furyRPC.createNode({ extid: username, privateKey })
+      furyUser.address = furyUser.node().wallet.address
+      update(model => {
+        Object.assign(model.user, furyUser)
+        model.vm.authInProgress = false
+        console.log('model.user:  ', model.user)
+        console.log('user.node.wallet', model.user.node().wallet)
+        return model
+      })
+      let end = Date.now()
+      let duration = (end - start) / 1000
+      console.log('login total duration: ', duration, ' sec')
+    })
+    .then(() => {
+      console.info('isauthenticated? ', isAuthendicated())
+      fetchRSAKeys(authNode(), accountObj)
     })
     .catch(err => console.error(err))
+}
+
+/**
+ *
+ * @param {object} n - fury node
+ * @param {function} n.furyuser
+ * @param {object} accountObj
+ * @return {*|Promise<T | void>}
+ */
+function fetchRSAKeys (authNode, accountObj) {
+  let start = Date.now()
+  let end
+  return authNode.furyuser()
+    .then(furyuser => {
+      console.log('authNode.furyuser   ', furyuser)
+      return furyuser.getRSAKeys(accountObj)
+    })
+    .then(() => {
+      update(model => {
+        model.user.account.rsaPrivate = accountObj.RSAPrivateKey
+        model.user.account.rsaPublic = accountObj.RSAPublicKey
+        return model
+      })
+      end = Date.now()
+      console.info('end fetchRSAKeys ', (end - start) / 1000, ' sec')
+    })
+    .catch(err => console.error(err))
+}
+
+/**
+ *
+ * @param {object} accountObj
+ * @param {object) accountObj.wallet
+ * @param {string} accountObj.wallet.address
+ * @param {function} accountObj.decrypt
+ * @param {object} [n = furyRPC.createNode()]
+ * @return {Promise<string>}
+ */
+function fetchUserPrivateKey (accountObj, n) {
+  n = n || furyRPC.createNode()
+  console.log(accountObj.wallet.address)
+  return furyRPC.getRelation(accountObj.wallet.address, 222, n)
+    .then(stringStore => {
+      if (stringStore === '0x0000000000000000000000000000000000000000') { return }
+      return n.stringstorage(stringStore)
+        .then(fetch => fetch.str())
+        .then(string => accountObj.decrypt(string))
+    })
+    .catch(err => console.error(err))
+}
+
+function isAuthendicated () {
+  let check
+  let extid
+  let userAddress
+  let accountAddress
+  update(model => {
+    extid = model.user.extid
+    userAddress = model.user.address
+    accountAddress = model.user.account.wallet.address
+    return model
+  })
+  check = (
+    furyRPC.createNode({ extid }).wallet.address === userAddress &&
+    furyRPC.createNode({ extid: 'authNode' }).wallet.address === accountAddress
+  )
+  return check
 }

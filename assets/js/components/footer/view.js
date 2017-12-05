@@ -18,7 +18,11 @@ export const createView = function (actions) {
       m(
         'div',
         m(
-          'a', { href: 'javascript:void(0);', onclick: actions.setNode }, 'Click Me to set user node'
+          'a',
+          {
+            href: 'javascript:void(0);' /* onclick: actions.someActions */
+          },
+          'Click me, I am a link!'
         )
       ),
       m(

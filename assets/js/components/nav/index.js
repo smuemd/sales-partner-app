@@ -1,4 +1,4 @@
-import createActions  from '../../actions/index'
+import { createActions } from '../../actions/'
 import { createView } from './view'
 
 export const nav = {
