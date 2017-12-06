@@ -1,6 +1,5 @@
 export const createModel = (settings) => {
   return {
-    redirect: false,
     routesDesc: settings.routesDesc,
     page: '',
     query: '',
@@ -24,7 +23,11 @@ export const createModel = (settings) => {
       node: undefined
     },
     vm: {
-      authInProgress: false
+      login: {
+        authInProgress: false,
+        msg: undefined,
+        redirect: ''
+      }
     }
   }
 }
