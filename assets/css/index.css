@@ -10,10 +10,10 @@
 @import '_global.css';
 
 /** import utilities from local css_modules */
-/* ç@import "__utils-sample-utility"; */
+/* @import "__utils-sample-utility"; */
 
 /** import components from local css_modules */
 /* @import '__components-sample-component'; */
 
 /** import theme from local css_modules */
-@import "theme";
+/* @import "theme"; */
