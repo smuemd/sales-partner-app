@@ -1,9 +1,13 @@
+import { settings } from '../settings'
+import { createModel } from '../model'
+
 let update
 
 export function createActions (updte) {
   update = updte
   return {
-    onNavigateTo: onNavigateTo
+    onNavigateTo: onNavigateTo,
+    logout
   }
 }
 
@@ -21,6 +25,13 @@ export function onNavigateTo (page, params) {
     model.query = window.location.href.split('?')[1]
       ? '?' + window.location.href.split('?')[1]
       : ''
+    return model
+  })
+}
+
+function logout () {
+  update(model => {
+    model = createModel(settings)
     return model
   })
 }
