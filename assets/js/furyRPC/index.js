@@ -111,10 +111,13 @@ function readRelationString (address, key, n) {
   n = n || createNode()
   return getRelation(address, key, n)
     .then(strgStoreAddress => {
+      if (strgStoreAddress === '0x0000000000000000000000000000000000000000') {
+        console.error('no string storage contract found for role lookup ', key, ' of ', address)
+        return
+      }
       return n.stringstorage(strgStoreAddress)
-    })
-    .then(strgStore => {
-      return strgStore.str()
+        .then(strgStore => strgStore.str(), err =>
+          console.error(err, 'stringstorage.str() failed'))
     })
     .catch(err => console.error(err))
 }
@@ -208,7 +211,7 @@ function addSenderToLedger (n, senderAddress, ledgerAddress) {
  * @return {Promise.<number>} - account credit value
  */
 function fetchAccountDebit (ledgerAddress, accountAddress, n) {
-  if (!n) n = node()
+  if (!n) n = createNode()
   return n.stromkonto(ledgerAddress)
     .then(ledger => {
       return ledger.balancesHaben(accountAddress)
@@ -224,7 +227,7 @@ function fetchAccountDebit (ledgerAddress, accountAddress, n) {
  * @return {Promise.<number>} - account debit value
  */
 function fetchAccountCredit (ledgerAddress, accountAddress, n) {
-  if (!n) n = node()
+  if (!n) n = createNode()
   return n.stromkonto(ledgerAddress)
     .then(ledger => {
       return ledger.balancesSoll(accountAddress)
