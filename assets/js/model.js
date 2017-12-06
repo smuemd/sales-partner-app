@@ -26,7 +26,7 @@ export const createModel = (settings) => {
       login: {
         authInProgress: false,
         msg: undefined,
-        redirect: ''
+        redirectTo: ''
       }
     }
   }
