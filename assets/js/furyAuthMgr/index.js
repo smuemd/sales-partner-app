@@ -22,25 +22,20 @@ export function fetchUserNode (accountObj) {
     accountObj.wallet.address,
     222,
     furyRPC.createNode({
-      extid: accountObj.username + '::account',
+      extid: 'user::account',
       privateKey: accountObj.wallet.privateKey
     })
   ).then(encodedStrg => {
     if (!encodedStrg) {
-      console.error('no private key found. Register to set up an account')
+      console.info('User node initialisation failed: No encoded String found', ' Sign up for an account first!')
       return
     }
     return accountObj.decrypt(encodedStrg).then(privKey => {
-      console.log('privKey', privKey)
       let duration = (Date.now() - start) / 1000
       console.info('Success: user node initialization in only ', duration, 'sec')
       // TODO check is privKey is wallet
-      return function () {
-        return furyRPC.createNode({
-          extid: accountObj.username,
-          privateKey: privKey
-        })
-      }
-    }, err => console.error(err, 'user node not initialized'))
+      return () => furyRPC.createNode({extid: accountObj.username, privateKey: privKey})
+    }).catch(err => console.error(err))
   })
 }
+

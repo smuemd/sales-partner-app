@@ -24,7 +24,7 @@ export const createActions = (updte) => {
   update = updte
   return {
     // authenticateUser: authUser,
-    authenticateUser: authenticateUser
+    authenticateUser: authenticateUser,
   }
 }
 
@@ -32,7 +32,8 @@ function authenticateUser (username, password) {
   let start = Date.now()
   user.extid = username
   update((model) => {
-    model.vm.authInProgress = true
+    model.vm.login.authInProgress = true
+    model.vm.login.msg = ''
     return model
   })
   furyAuth.fetchUserAccount(username, password)
@@ -42,10 +43,11 @@ function authenticateUser (username, password) {
     })
     .then(userNode => {
       if (!userNode) {
+        let msg = 'Login failed.'
         update(model => {
           // Object.assign(model.user.account, user.account)
-          model.page = 'Register'
-          model.params = { msg: 'register an account!' }
+          model.vm.login.authInProgress = false
+          model.vm.login.msg = msg
           return model
         })
         return
@@ -53,7 +55,8 @@ function authenticateUser (username, password) {
       user.address = userNode().wallet.address
       user.node = userNode
       update(model => {
-        model.vm.authInProgress = false
+        model.vm.login.authInProgress = false
+        model.vm.login.msg = 'you are logged in.'
         model.page = 'Account'
         model.params = { address: user.address }
         Object.assign(model.user, user)
