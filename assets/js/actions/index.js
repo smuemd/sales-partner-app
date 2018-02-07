@@ -50,7 +50,7 @@ function onNavigateTo (model) {
 
 function fetchAccountData (accountAddress) {
   let node = dataApi.furyNode
-  let ledger = '0x19BF166624F485f191d82900a5B7bc22Be569895' // TODO derive form settings
+  let ledger = '0x5b0c9c6c9fa239455293147ABcD525075B686643' // TODO derive form settings
   let account =
     accountAddress ||
     window.localStorage.getItem(
