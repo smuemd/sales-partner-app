@@ -10,7 +10,7 @@ export default vwTrsanctions
 
 function vwTrsanctions (mdl) {
   let model = mdl
-  const transactions = model.partnerAccount.transactions.slice(-50)
+  const transactions = model.partnerAccount.transactions
 
   return m('div.mt5', [
     m('div.overflow-auto', [
