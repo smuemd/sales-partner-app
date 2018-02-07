@@ -51,11 +51,11 @@ function onNavigateTo (model) {
 function fetchAccountData (accountAddress) {
   let node = dataApi.furyNode
   let ledger = '0x5b0c9c6c9fa239455293147ABcD525075B686643' // TODO derive form settings
-  let account =
-    accountAddress ||
-    window.localStorage.getItem(
-      'user[' + model.user.extId + ']:remoteNode:address'
-    )
+  let account = '0x19c541b0832543faed2c42ec8d6b96d9287dc33f'
+    // accountAddress ||
+    //window.localStorage.getItem(
+    //  'user[' + model.user.extId + ']:remoteNode:address'
+    //)
   console.info('fetchAccountData() was triggerd.')
   console.log(node, ledger, account)
   if (!node || !ledger || !account) {
