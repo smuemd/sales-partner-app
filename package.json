@@ -39,7 +39,8 @@
     "spike-optimize": "^0.1.2",
     "spike-page-id": "^1.0.0",
     "stromdao-businessobject": "^0.4.59",
-    "tachyons": "^4.8.1"
+    "tachyons": "^4.8.1",
+    "snyk": "^1.70.2"
   },
   "devDependencies": {
     "ava": "^0.22.0",
@@ -80,6 +81,9 @@
     "start": "spike watch",
     "build": "spike compile",
     "format": "prettier-standard '**/*.js'",
-    "prod": "NODE_ENV=production spike compile -e production"
-  }
+    "prod": "NODE_ENV=production spike compile -e production",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
