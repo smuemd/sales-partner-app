@@ -1,0 +1,81 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - spike > spike-core > browser-sync > socket.io-client > engine.io-client > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > connect > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io-client > socket.io-parser > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-parser > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-adapter > socket.io-parser > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-client > socket.io-parser > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > serve-static > send > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io-client > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > serve-index > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > engine.io > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-adapter > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-client > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-client > engine.io-client > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > localtunnel > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > connect > finalhandler > debug:
+        patched: '2017-12-09T06:08:30.901Z'
+  'npm:ms:20170412':
+    - spike > spike-core > browser-sync > connect > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > connect > finalhandler > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > serve-index > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io-client > socket.io-parser > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-parser > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-client > socket.io-parser > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > serve-static > send > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > serve-static > send > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io-client > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io-client > engine.io-client > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > engine.io > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-adapter > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-client > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-client > engine.io-client > debug > ms:
+        patched: '2017-12-09T06:08:30.901Z'
+  'npm:qs:20170213':
+    - spike > spike-core > browser-sync > qs:
+        patched: '2017-12-09T06:08:30.901Z'
+  'npm:ws:20160920':
+    - spike > spike-core > browser-sync > socket.io-client > engine.io-client > ws:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > engine.io > ws:
+        patched: '2017-12-09T06:08:30.901Z'
+    - spike > spike-core > browser-sync > socket.io > socket.io-client > engine.io-client > ws:
+        patched: '2017-12-09T06:08:30.901Z'
